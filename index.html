@@ -1109,6 +1109,249 @@
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
   }
 
+  /* ---------- Dish kinds ---------- */
+  .kinds {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 8px 0 0 2px;
+  }
+  .kind {
+    --k: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 32px;
+    padding: 0 12px 0 10px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: none;
+    color: var(--text-2);
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  }
+  .kind:hover { color: var(--text); border-color: var(--border-strong); }
+  .kind:active { transform: scale(0.95); }
+  .kind[aria-checked="true"] {
+    background: color-mix(in srgb, var(--k) 16%, transparent);
+    border-color: color-mix(in srgb, var(--k) 60%, transparent);
+    color: var(--text);
+    font-weight: 500;
+  }
+  .kind[aria-checked="true"] svg { color: var(--k); }
+  .k-savory { --k: #E9B44C; }
+  .k-sweet { --k: #FF8FA3; }
+  .k-spooky { --k: #B48CFF; }
+
+  /* ---------- Travel ---------- */
+  .travel {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .travel button {
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    gap: 6px;
+    height: 72px;
+    border-radius: var(--r-md);
+    border: 1px solid var(--border-strong);
+    background: var(--field);
+    color: var(--text-2);
+    font-size: 13.5px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  }
+  .travel button svg { width: 22px; height: 22px; }
+  .travel button:hover { color: var(--text); border-color: color-mix(in srgb, var(--text) 35%, transparent); }
+  .travel button:active { transform: scale(0.96); }
+  .travel button[aria-checked="true"] {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--text);
+    font-weight: 500;
+  }
+  .travel button[aria-checked="true"] svg { color: var(--accent); }
+
+  /* ---------- Your RSVPs / edit mode ---------- */
+  .mine {
+    margin: -8px 0 28px;
+    padding: 14px 16px;
+    border-radius: var(--r-md);
+    background: var(--accent-soft);
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  }
+  .mine .mono { color: var(--accent); display: block; margin-bottom: 8px; }
+  .mine ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .mine li { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .mine li span { font-weight: 500; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .text-btn {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 34px;
+    padding: 0 12px;
+    border-radius: 999px;
+    border: 1px solid var(--border-strong);
+    background: var(--surface-solid);
+    color: var(--text);
+    font-size: 13.5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .text-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .edit-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+  .edit-head .eyebrow { margin: 0; }
+  .danger-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    height: 48px;
+    margin-top: 12px;
+    border: 0;
+    border-radius: 999px;
+    background: none;
+    color: var(--danger);
+    font-size: 14.5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .danger-btn:hover { background: color-mix(in srgb, var(--danger) 9%, transparent); }
+
+  .linkbox {
+    margin: 0 0 24px;
+    padding: 16px;
+    border-radius: var(--r-md);
+    border: 1px solid var(--border-strong);
+    background: var(--field);
+    text-align: left;
+  }
+  .linkbox p { margin: 0 0 10px; font-size: 14px; color: var(--text-2); }
+  .linkbox strong { color: var(--text); font-weight: 600; }
+  .linkrow { display: flex; gap: 8px; }
+  .linkrow input {
+    flex: 1;
+    min-width: 0;
+    height: 42px;
+    padding: 0 12px;
+    border-radius: var(--r-sm);
+    border: 1px solid var(--border);
+    background: var(--surface-solid);
+    color: var(--text-2);
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+  .linkrow .text-btn { height: 42px; border-radius: var(--r-sm); }
+
+  dialog.confirm {
+    width: min(400px, calc(100vw - 32px));
+    padding: 28px;
+    border-radius: var(--r-lg);
+    border: 1px solid var(--border-strong);
+    background: var(--surface-solid);
+    color: var(--text);
+    box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.6);
+  }
+  dialog.confirm[open] { animation: pop 0.35s var(--ease-spring) both; }
+  dialog.confirm::backdrop {
+    background: rgba(8, 5, 10, 0.55);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
+  dialog.confirm h3 { margin: 0 0 8px; font-family: var(--serif); font-weight: 400; font-size: 26px; letter-spacing: -0.02em; }
+  dialog.confirm p { margin: 0 0 24px; color: var(--text-2); }
+  dialog.confirm .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .solid-danger {
+    height: 50px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--danger);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  :root:not([data-theme="light"]) .solid-danger { color: #1A0D05; }
+  @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .solid-danger { color: #fff; } }
+  .solid-danger:hover { filter: brightness(1.06); }
+
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+    z-index: 40;
+    max-width: calc(100vw - 32px);
+    padding: 12px 18px;
+    border-radius: 999px;
+    background: var(--text);
+    color: var(--bg);
+    font-size: 14.5px;
+    font-weight: 500;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    transform: translate(-50%, 20px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.4s var(--ease-out), opacity 0.3s ease;
+  }
+  .toast.on { transform: translate(-50%, 0); opacity: 1; }
+
+  /* ---------- Card extras ---------- */
+  .card-top .party svg { width: 13px; height: 13px; margin-left: -2px; color: var(--hue); }
+  .card-dishes li .tag {
+    flex: none;
+    margin-left: auto;
+    padding-left: 8px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--k);
+  }
+  .card-dishes li.has-kind::before { background: var(--k); }
+  .card-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .yours {
+    color: var(--accent);
+  }
+  .card .edit-btn {
+    height: 30px;
+    padding: 0 12px;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--accent) 50%, transparent);
+    background: var(--accent-soft);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    cursor: pointer;
+  }
+  .card .edit-btn:hover { border-color: var(--accent); }
+  .mix {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    margin: 14px 0 0;
+    padding: 0;
+    list-style: none;
+    color: var(--text-2);
+  }
+  .mix li { display: inline-flex; align-items: center; gap: 6px; }
+  .mix svg { width: 13px; height: 13px; color: var(--k, var(--text-3)); }
+
   @media (max-width: 420px) {
     .brand span { display: none; }
     .tab { padding: 0 13px; }
@@ -1168,8 +1411,17 @@
 
       <div class="form-card">
         <form id="rsvp" novalidate>
-          <h2>RSVP</h2>
-          <p class="form-sub">Takes about a minute.</p>
+          <div class="edit-head" id="edit-head" hidden>
+            <span class="eyebrow mono">Editing your RSVP</span>
+            <button type="button" class="text-btn" id="cancel-edit">Cancel</button>
+          </div>
+          <h2 id="form-title">RSVP</h2>
+          <p class="form-sub" id="form-sub">Takes about a minute.</p>
+
+          <div class="mine" id="mine" hidden>
+            <span class="mono">Already RSVP’d from this device</span>
+            <ul id="mine-list"></ul>
+          </div>
 
           <div class="field" id="f-name">
             <label class="field-label" for="name">Parent’s names</label>
@@ -1212,14 +1464,23 @@
             </div>
           </div>
 
+          <div class="field">
+            <div class="field-label"><span id="travel-label">How you’re getting there</span><span class="opt">Optional</span></div>
+            <div class="travel" id="travel" role="radiogroup" aria-labelledby="travel-label"></div>
+          </div>
+
           <button type="submit" class="submit" id="submit">
             <span class="label">Send RSVP
               <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </span>
-            <span class="busy" aria-hidden="true"><span class="spinner"></span>Sending</span>
+            <span class="busy" aria-hidden="true"><span class="spinner"></span><span id="busy-text">Sending</span></span>
           </button>
           <div class="form-msg" id="form-msg" role="alert" hidden></div>
-          <p class="fine">Names and dishes appear on the guest list. Allergies are shown without names.</p>
+          <button type="button" class="danger-btn" id="remove-btn" hidden>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 4.5h10M6.5 4.5V3h3v1.5M4.5 4.5l.6 8.5h5.8l.6-8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Remove us from the guest list
+          </button>
+          <p class="fine" id="fine">Names, dishes and how you’re getting there appear on the guest list. Allergies are shown without names.</p>
         </form>
 
         <div class="thanks" id="thanks" hidden tabindex="-1">
@@ -1228,6 +1489,14 @@
           </div>
           <h2 id="thanks-title">You’re on the list</h2>
           <p class="detail" id="thanks-detail"></p>
+          <div class="linkbox" id="linkbox">
+            <p><strong>Plans change?</strong> This device remembers your RSVP. To edit or cancel from another phone or computer, save this private link.</p>
+            <div class="linkrow">
+              <label class="sr-only" for="edit-link">Your private edit link</label>
+              <input id="edit-link" type="text" readonly>
+              <button type="button" class="text-btn" id="copy-link">Copy</button>
+            </div>
+          </div>
           <div class="actions">
             <button type="button" class="pill-btn" id="see-guests" style="justify-content:center;height:52px">See who’s coming</button>
             <button type="button" class="ghost" id="another">RSVP for someone else</button>
@@ -1248,6 +1517,7 @@
           <li><span class="num" id="st-people">0</span><span class="mono">People</span></li>
           <li><span class="num" id="st-dishes">0</span><span class="mono">Dishes</span></li>
         </ul>
+        <ul class="mix mono" id="mix" aria-label="Dish and travel breakdown" hidden></ul>
       </div>
       <div class="seg" role="group" aria-label="Layout">
         <button type="button" id="mode-3d" aria-pressed="true">
@@ -1301,6 +1571,16 @@
 
 <div class="demo-flag mono" id="demo-flag" hidden>Demo data · nothing is saved</div>
 
+<dialog class="confirm" id="confirm" aria-labelledby="confirm-title" aria-describedby="confirm-text">
+  <h3 id="confirm-title">Remove your RSVP?</h3>
+  <p id="confirm-text"></p>
+  <div class="row">
+    <button type="button" class="ghost" id="confirm-no">Keep it</button>
+    <button type="button" class="solid-danger" id="confirm-yes">Remove</button>
+  </div>
+</dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
 <script>
 (() => {
   const SUPABASE_URL = "https://zdvtbchivhqurmekfgek.supabase.co";
@@ -1327,36 +1607,120 @@
   };
 
   /* ---------------- Data ---------------- */
+  const KINDS = [
+    { id: "savory", label: "Savory", icon: '<path d="M2.5 8h11a5.5 5 0 0 1-11 0Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M6 5.8c-.8-1 .8-1.6 0-2.8M10 5.8c-.8-1 .8-1.6 0-2.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>' },
+    { id: "sweet", label: "Sweet", icon: '<circle cx="8" cy="8" r="2.8" stroke="currentColor" stroke-width="1.4"/><path d="M5.3 7 2.2 5.2v5.6L5.3 9M10.7 7l3.1-1.8v5.6L10.7 9" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>' },
+    { id: "spooky", label: "Spooky", icon: '<path d="M4 14V7.2a4 4 0 0 1 8 0V14l-1.3-1.1L9.3 14 8 12.9 6.7 14l-1.4-1.1Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><circle cx="6.6" cy="7.4" r=".8" fill="currentColor"/><circle cx="9.4" cy="7.4" r=".8" fill="currentColor"/>' }
+  ];
+  const TRAVEL = [
+    { id: "walk", label: "Walking", by: "on foot", icon: '<circle cx="8.6" cy="2.6" r="1.4" stroke="currentColor" stroke-width="1.3"/><path d="M8.2 5.4 7 10l2.4 1.9.5 2.9M7 10l-1.5 4.8M8.2 5.4l2.6 2.3M8.2 5.4 5.7 7.3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>' },
+    { id: "bike", label: "Bike", by: "by bike", icon: '<circle cx="3.6" cy="10.8" r="2.6" stroke="currentColor" stroke-width="1.3"/><circle cx="12.4" cy="10.8" r="2.6" stroke="currentColor" stroke-width="1.3"/><path d="M3.6 10.8 6 6h4.4l2 4.8M6 6l2.3 4.8L10.4 6M5.3 4h2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>' },
+    { id: "bus", label: "Bus", by: "by bus", icon: '<rect x="2.5" y="1.8" width="11" height="10.4" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M2.5 7.6h11M4.6 12.2V14M11.4 12.2V14" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="5" cy="10" r=".8" fill="currentColor"/><circle cx="11" cy="10" r=".8" fill="currentColor"/>' },
+    { id: "car", label: "Car", by: "by car", icon: '<path d="M2 11.2V8.6l1.8-3.4h8.4L14 8.6v2.6Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M2.8 8.6h10.4" stroke="currentColor" stroke-width="1.3"/><circle cx="4.8" cy="11.6" r="1.3" fill="var(--bg)" stroke="currentColor" stroke-width="1.3"/><circle cx="11.2" cy="11.6" r="1.3" fill="var(--bg)" stroke="currentColor" stroke-width="1.3"/>' }
+  ];
+  const kindOf = (id) => KINDS.find(k => k.id === id);
+  const travelOf = (id) => TRAVEL.find(t => t.id === id);
+
   const demoData = {
     guests: [
-      { name: "Maya Okafor", party_size: 2, dishes: ["Roasted butternut squash soup"], created_at: ago(52) },
-      { name: "Theo Lindqvist", party_size: 1, dishes: ["Cardamom pumpkin bread", "Spiced cider"], created_at: ago(47) },
-      { name: "Priya & Sam", party_size: 4, dishes: ["Black bean chili", "Cornbread"], created_at: ago(40) },
-      { name: "Jordan Reyes", party_size: 1, dishes: ["Caramel apples"], created_at: ago(33) },
-      { name: "The Hartwell family", party_size: 5, dishes: ["Mac and cheese", "Witch finger cookies"], created_at: ago(28) },
-      { name: "Ines Moreau", party_size: 2, dishes: ["Beet and goat cheese salad"], created_at: ago(20) },
-      { name: "Kenji Watanabe", party_size: 3, dishes: ["Kabocha tempura", "Miso glazed carrots"], created_at: ago(14) },
-      { name: "Lou Bennett", party_size: 1, dishes: ["Mulled wine"], created_at: ago(9) },
-      { name: "Ada Fitzgerald", party_size: 2, dishes: ["Mushroom galette"], created_at: ago(6) },
-      { name: "Rafael Costa", party_size: 2, dishes: ["Pão de queijo", "Brigadeiros", "Guaraná"], created_at: ago(3) },
-      { name: "Noor Haddad", party_size: 3, dishes: ["Lentil soup", "Date maamoul"], created_at: ago(1) }
-    ],
-    allergies: ["Peanuts", "tree nuts, dairy", "Shellfish", "peanuts", "Gluten"]
+      ["Maya Okafor", 2, ["Roasted butternut squash soup"], ["savory"], "walk", "Peanuts", 52],
+      ["Theo Lindqvist", 1, ["Cardamom pumpkin bread", "Spiced cider"], ["sweet", null], "bike", null, 47],
+      ["Priya & Sam", 4, ["Black bean chili", "Cornbread"], ["savory", "savory"], "car", "tree nuts, dairy", 40],
+      ["Jordan Reyes", 1, ["Caramel apples"], ["sweet"], "bus", null, 33],
+      ["The Hartwell family", 5, ["Mac and cheese", "Witch finger cookies"], ["savory", "spooky"], "car", "Shellfish", 28],
+      ["Ines Moreau", 2, ["Beet and goat cheese salad"], ["savory"], "walk", null, 20],
+      ["Kenji Watanabe", 3, ["Kabocha tempura", "Miso glazed carrots"], ["savory", "savory"], "car", "peanuts", 14],
+      ["Lou Bennett", 1, ["Mulled wine"], [null], "walk", null, 9],
+      ["Ada Fitzgerald", 2, ["Mushroom galette"], ["savory"], "bike", "Gluten", 6],
+      ["Rafael Costa", 2, ["Pão de queijo", "Brigadeiros", "Guaraná"], ["savory", "sweet", null], "bus", null, 3],
+      ["Noor Haddad", 3, ["Lentil soup", "Graveyard dirt cups"], ["savory", "spooky"], "car", null, 1]
+    ].map(([name, party_size, dishes, dish_kinds, travel, allergies, hrs], i) => ({
+      id: "demo-" + i, edit_token: "demo-token-" + i, name, party_size, dishes, dish_kinds, travel, allergies, created_at: ago(hrs)
+    }))
   };
   function ago(hours) { return new Date(Date.now() - hours * 3600e3).toISOString(); }
 
-  async function rpc(name) {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${name}`, { method: "POST", headers, body: "{}" });
-    if (!res.ok) throw new Error(res.status);
-    return res.json();
+  async function rpc(name, body = {}) {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${name}`, { method: "POST", headers, body: JSON.stringify(body) });
+    const data = await res.json().catch(() => null);
+    if (!res.ok) throw new Error(data?.message || "Request failed (" + res.status + ")");
+    return data;
   }
-  async function fetchGuests() {
-    if (DEMO) return demoData.guests.slice();
-    return rpc("halloween_guests");
+  const pick = (g, keys) => Object.fromEntries(keys.map(k => [k, g[k]]));
+  const wait = (ms) => new Promise(r => setTimeout(r, ms));
+  // Same shape as the Supabase functions, kept in memory for ?demo
+  function demoClean(p) {
+    const dishes = [], dish_kinds = [];
+    p.p_dishes.forEach((d, i) => { if (d.trim()) { dishes.push(d.trim()); dish_kinds.push(p.p_dish_kinds?.[i] || null); } });
+    return { name: p.p_name.trim(), party_size: p.p_party_size, dishes, dish_kinds, allergies: p.p_allergies || null, travel: p.p_travel || null };
   }
-  async function fetchAllergies() {
-    if (DEMO) return demoData.allergies.map(a => ({ allergies: a }));
-    return rpc("halloween_allergies");
+  const api = {
+    async guests() {
+      if (DEMO) return demoData.guests.map(g => pick(g, ["id", "name", "party_size", "dishes", "dish_kinds", "travel", "created_at"]));
+      return rpc("halloween_guests");
+    },
+    async allergies() {
+      if (DEMO) return demoData.guests.filter(g => g.allergies).map(g => ({ allergies: g.allergies }));
+      return rpc("halloween_allergies");
+    },
+    async create(p) {
+      if (DEMO) {
+        await wait(700);
+        const i = demoData.guests.length + Math.floor(Math.random() * 1e6);
+        const g = { id: "demo-" + i, edit_token: "demo-token-" + i, ...demoClean(p), created_at: new Date().toISOString() };
+        demoData.guests.push(g);
+        return { id: g.id, edit_token: g.edit_token };
+      }
+      const rows = await rpc("halloween_rsvp_create", p);
+      return rows[0];
+    },
+    async get(token) {
+      if (DEMO) {
+        const g = demoData.guests.find(x => x.edit_token === token);
+        return g ? pick(g, ["id", "name", "party_size", "dishes", "dish_kinds", "allergies", "travel"]) : null;
+      }
+      const rows = await rpc("halloween_rsvp_get", { p_token: token });
+      return rows[0] || null;
+    },
+    async update(token, p) {
+      if (DEMO) {
+        await wait(700);
+        const g = demoData.guests.find(x => x.edit_token === token);
+        if (g) Object.assign(g, demoClean(p));
+        return !!g;
+      }
+      return rpc("halloween_rsvp_update", { p_token: token, ...p });
+    },
+    async remove(token) {
+      if (DEMO) {
+        await wait(500);
+        const i = demoData.guests.findIndex(x => x.edit_token === token);
+        if (i >= 0) demoData.guests.splice(i, 1);
+        return i >= 0;
+      }
+      return rpc("halloween_rsvp_delete", { p_token: token });
+    }
+  };
+
+  // RSVPs made on this device: [{ id, token }]. The token is the only key to edit or remove one.
+  const MINE_KEY = DEMO ? "potluck-mine-demo" : "potluck-mine";
+  const mine = {
+    all() { try { return JSON.parse(store.get(MINE_KEY) || "[]").filter(m => m && m.id && m.token); } catch { return []; } },
+    save(list) { store.set(MINE_KEY, JSON.stringify(list)); },
+    add(id, token) { this.save([...this.all().filter(m => m.id !== id), { id, token }]); },
+    drop(id) { this.save(this.all().filter(m => m.id !== id)); },
+    token(id) { return this.all().find(m => m.id === id)?.token || null; },
+    has(id) { return this.all().some(m => m.id === id); }
+  };
+  const editLink = (token) => `${location.origin}${location.pathname}${DEMO ? "?demo" : ""}#edit=${token}`;
+
+  let toastTimer;
+  function toast(text) {
+    const t = $("toast");
+    t.textContent = text;
+    t.classList.add("on");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove("on"), 3600);
   }
 
   /* ---------------- Tabs ---------------- */
@@ -1372,7 +1736,7 @@
   }
   function show(name, { focusTab = false, push = true } = {}) {
     if (!views[name]) name = "rsvp";
-    if (name === current) { moveIndicator(); return; }
+    if (name === current) { moveIndicator(); return Promise.resolve(); }
     const swap = () => {
       for (const k of Object.keys(views)) {
         const on = k === name;
@@ -1385,10 +1749,12 @@
       window.scrollTo({ top: 0 });
       if (name === "guests") guestView.activate();
     };
-    if (document.startViewTransition && !reduceMotion.matches) document.startViewTransition(swap);
-    else swap();
+    let done;
+    if (document.startViewTransition && !reduceMotion.matches) done = document.startViewTransition(swap).updateCallbackDone.catch(() => {});
+    else { swap(); done = Promise.resolve(); }
     if (focusTab) tabs[name].focus();
     if (push) history.replaceState(null, "", name === "rsvp" ? location.pathname + location.search : "#guests");
+    return done;
   }
   tabs.rsvp.addEventListener("click", () => show("rsvp"));
   tabs.guests.addEventListener("click", () => show("guests"));
@@ -1401,7 +1767,10 @@
     const go = e.target.closest("[data-go]");
     if (go) { show(go.dataset.go); if (go.dataset.go === "rsvp") $("name").focus({ preventScroll: true }); }
   });
-  window.addEventListener("hashchange", () => show(location.hash === "#guests" ? "guests" : "rsvp", { push: false }));
+  window.addEventListener("hashchange", () => {
+    if (location.hash.startsWith("#edit=")) return;
+    show(location.hash === "#guests" ? "guests" : "rsvp", { push: false });
+  });
   window.addEventListener("scroll", () => $("topbar").classList.toggle("scrolled", scrollY > 8), { passive: true });
 
   /* ---------------- Allergy board ---------------- */
@@ -1506,7 +1875,34 @@
   const addDishBtn = $("add-dish");
   const PLACEHOLDERS = ["e.g. Roasted squash soup", "e.g. Caramel apples", "e.g. Spiced cider"];
 
-  function addDish(focus) {
+  // Single-choice chips that can also be cleared by clicking the chosen one again
+  function choiceGroup(options, { cls, label, onChange }) {
+    const group = h("div", { class: cls, role: "radiogroup", "aria-label": label });
+    const buttons = options.map(o => {
+      const b = h("button", { type: "button", role: "radio", "aria-checked": "false", "data-v": o.id, class: o.cls || "" },
+        svgIcon(o.icon, o.size || 14), h("span", { text: o.label }));
+      b.addEventListener("click", () => {
+        const on = b.getAttribute("aria-checked") !== "true";
+        set(on ? o.id : null);
+        onChange?.();
+      });
+      group.append(b);
+      return b;
+    });
+    group.addEventListener("keydown", (e) => {
+      const dir = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+      if (!dir) return;
+      e.preventDefault();
+      const i = buttons.indexOf(document.activeElement);
+      buttons[(i + dir + buttons.length) % buttons.length].focus();
+    });
+    function set(v) { buttons.forEach(b => b.setAttribute("aria-checked", b.dataset.v === v)); }
+    group.value = () => buttons.find(b => b.getAttribute("aria-checked") === "true")?.dataset.v || null;
+    group.set = set;
+    return group;
+  }
+
+  function addDish(focus, value = "", kind = null) {
     const rows = dishesWrap.children.length;
     if (rows >= MAX_DISHES) return;
     const input = h("input", {
@@ -1514,6 +1910,7 @@
       placeholder: PLACEHOLDERS[rows], "aria-label": rows === 0 ? "Dish" : `Dish ${rows + 1}`,
       autocomplete: "off"
     });
+    input.value = value;
     const row = h("div", { class: "dish-row" + (rows ? " enter" : "") },
       h("span", { class: "idx mono", text: String(rows + 1).padStart(2, "0"), "aria-hidden": "true" }), input);
     if (rows > 0) {
@@ -1523,10 +1920,19 @@
       row.append(rm);
     }
     input.addEventListener("input", () => { clearError("dish"); checkConflicts(); });
-    const wrap = h("div", { class: "dish-wrap" }, row);
+    const kinds = choiceGroup(KINDS.map(k => ({ ...k, cls: "kind k-" + k.id })), {
+      cls: "kinds", label: rows === 0 ? "Kind of dish" : `Kind of dish ${rows + 1}`
+    });
+    kinds.set(kind);
+    const wrap = h("div", { class: "dish-wrap" }, row, kinds);
+    wrap.kinds = kinds;
+    if (rows > 0) wrap.style.marginTop = "14px";
     dishesWrap.append(wrap);
     syncDishes();
     if (focus) input.focus();
+  }
+  function readDishes() {
+    return [...dishesWrap.children].map(w => ({ dish: w.querySelector("input").value.trim(), kind: w.kinds.value() }));
   }
   function removeDish(row) {
     const wrap = row.parentElement;
@@ -1541,6 +1947,8 @@
       w.querySelector("input").setAttribute("aria-label", i === 0 ? "Dish" : `Dish ${i + 1}`);
       const rm = w.querySelector(".icon-btn");
       if (rm) rm.setAttribute("aria-label", `Remove dish ${i + 1}`);
+      w.kinds.setAttribute("aria-label", i === 0 ? "Kind of dish" : `Kind of dish ${i + 1}`);
+      w.style.marginTop = i ? "14px" : "";
     });
     checkConflicts();
   }
@@ -1625,6 +2033,28 @@
     }
   });
   $("other-allergy").addEventListener("blur", addCustom);
+  function resetPicks(raw) {
+    picked.clear();
+    picks.replaceChildren(...COMMON.map(c => makePick(c, false)));
+    for (const part of (raw || "").split(/[,;]/).map(s => s.trim()).filter(Boolean)) {
+      const common = COMMON.find(c => c.toLowerCase() === part.toLowerCase());
+      if (common) {
+        [...picks.children].find(b => b.textContent === common).setAttribute("aria-pressed", "true");
+        picked.add(common);
+      } else {
+        const label = titleCase(part);
+        picked.add(label);
+        picks.append(makePick(label, true));
+      }
+    }
+  }
+
+  /* ---------------- Form: travel ---------------- */
+  const travel = choiceGroup(TRAVEL.map(t => ({ ...t, size: 22 })), { cls: "travel", label: "How you’re getting there" });
+  travel.id = "travel";
+  travel.setAttribute("aria-labelledby", "travel-label");
+  travel.removeAttribute("aria-label");
+  $("travel").replaceWith(travel);
 
   /* ---------------- Form: validation + submit ---------------- */
   const form = $("rsvp");
@@ -1646,13 +2076,94 @@
   }
   $("name").addEventListener("input", () => clearError("name"));
 
-  let lastSubmitted = null;
+  /* ---------------- Create / edit mode ---------------- */
+  let editing = null;      // { id, token } while editing an existing RSVP
+  let lastSubmitted = null; // id of the RSVP just saved, for the guest-list highlight
+
+  function fillForm(r) {
+    form.reset();
+    ["name", "dish"].forEach(clearError);
+    formMsg.hidden = true;
+    $("name").value = r?.name || "";
+    partySize = 0; setSize(r?.party_size || 1);
+    dishesWrap.replaceChildren();
+    const ds = r?.dishes?.length ? r.dishes : [""];
+    ds.forEach((d, i) => addDish(false, d, r?.dish_kinds?.[i] || null));
+    resetPicks(r?.allergies);
+    travel.set(r?.travel || null);
+    checkConflicts();
+  }
+  function setMode(rsvp) {
+    const on = !!editing;
+    $("edit-head").hidden = !on;
+    $("form-title").textContent = on ? rsvp?.name || "Your RSVP" : "RSVP";
+    $("form-sub").textContent = on ? "Change anything below and save." : "Takes about a minute.";
+    $("submit").querySelector(".label").firstChild.textContent = on ? "Save changes " : "Send RSVP ";
+    $("busy-text").textContent = on ? "Saving" : "Sending";
+    $("remove-btn").hidden = !on;
+    renderMine();
+  }
+  function showForm() {
+    $("thanks").hidden = true;
+    form.hidden = false;
+  }
+  function startCreate({ focus = true } = {}) {
+    editing = null;
+    lastSubmitted = null;
+    fillForm(null);
+    setMode();
+    showForm();
+    if (focus) $("name").focus();
+  }
+  async function startEdit(token, { fromLink = false } = {}) {
+    const switching = current !== "rsvp" ? show("rsvp") : Promise.resolve();
+    let r;
+    try {
+      r = await api.get(token);
+    } catch {
+      toast("Couldn’t load your RSVP. Check your connection and try again.");
+      return;
+    }
+    if (!r) {
+      const stale = mine.all().find(m => m.token === token);
+      if (stale) mine.drop(stale.id);
+      renderMine();
+      toast(fromLink ? "That RSVP has already been removed." : "That RSVP isn’t on the list anymore.");
+      return;
+    }
+    mine.add(r.id, token);
+    editing = { id: r.id, token };
+    fillForm(r);
+    setMode(r);
+    showForm();
+    await switching;
+    requestAnimationFrame(() => {
+      document.querySelector(".form-card").scrollIntoView({ block: "start", behavior: reduceMotion.matches ? "auto" : "smooth" });
+      $("name").focus({ preventScroll: true });
+    });
+  }
+  $("cancel-edit").addEventListener("click", () => startCreate());
+
+  function renderMine() {
+    const known = new Map(guestView.data.map(g => [g.id, g]));
+    const rows = editing ? [] : mine.all().filter(m => known.has(m.id));
+    $("mine").hidden = rows.length === 0;
+    $("mine-list").replaceChildren(...rows.map(m => {
+      const b = h("button", { type: "button", class: "text-btn", "aria-label": `Edit RSVP for ${known.get(m.id).name}` }, "Edit");
+      b.addEventListener("click", () => startEdit(m.token));
+      return h("li", {}, h("span", { text: known.get(m.id).name }), b);
+    }));
+  }
+
+  /* ---------------- Submit ---------------- */
+  const joinList = (xs) => xs.length > 1 ? xs.slice(0, -1).join(", ") + " and " + xs.at(-1) : xs[0];
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     formMsg.hidden = true;
     addCustom();
     const name = $("name").value.trim();
-    const dishes = [...dishesWrap.querySelectorAll("input")].map(i => i.value.trim()).filter(Boolean);
+    const rows = readDishes();
+    const dishes = rows.filter(r => r.dish).map(r => r.dish);
     const allergies = [...picked].join(", ");
 
     const bad = [];
@@ -1664,30 +2175,49 @@
     if (btn.classList.contains("loading")) return;
     btn.classList.add("loading");
     btn.setAttribute("aria-busy", "true");
+    const payload = {
+      p_name: name,
+      p_party_size: partySize,
+      p_dishes: rows.map(r => r.dish),
+      p_dish_kinds: rows.map(r => r.kind),
+      p_allergies: allergies || null,
+      p_travel: travel.value()
+    };
     try {
-      const payload = { name, party_size: partySize, dishes, allergies: allergies || null };
-      if (DEMO) {
-        await new Promise(r => setTimeout(r, 900));
-        demoData.guests.push({ ...payload, created_at: new Date().toISOString() });
-        if (allergies) demoData.allergies.push(allergies);
+      let link = null;
+      if (editing) {
+        const ok = await api.update(editing.token, payload);
+        if (!ok) {
+          mine.drop(editing.id);
+          startCreate({ focus: false });
+          toast("That RSVP isn’t on the list anymore, so nothing was saved.");
+          return;
+        }
+        lastSubmitted = editing.id;
+        link = editLink(editing.token);
+        $("thanks-title").textContent = "Your RSVP is updated";
       } else {
-        const res = await fetch(SUPABASE_URL + "/rest/v1/halloween_rsvps", {
-          method: "POST",
-          headers: { ...headers, "Prefer": "return=minimal" },
-          body: JSON.stringify(payload)
-        });
-        if (!res.ok) throw new Error(res.status);
+        const r = await api.create(payload);
+        mine.add(r.id, r.edit_token);
+        lastSubmitted = r.id;
+        link = editLink(r.edit_token);
+        $("thanks-title").textContent = "You’re on the list";
       }
-      lastSubmitted = name;
-      const list = dishes.length > 1 ? dishes.slice(0, -1).join(", ") + " and " + dishes.at(-1) : dishes[0];
-      $("thanks-title").textContent = "You’re on the list";
-      $("thanks-detail").textContent = `${name}, party of ${partySize}, bringing ${list}. Your card is up on the guest list.`;
+      const how = travelOf(payload.p_travel);
+      $("thanks-detail").textContent =
+        `${name}, party of ${partySize}, bringing ${joinList(dishes)}${how ? ", coming " + how.by : ""}.`;
+      $("edit-link").value = link;
+      $("copy-link").textContent = "Copy";
+      editing = null;
+      setMode();
       form.hidden = true;
       $("thanks").hidden = false;
       $("thanks").focus();
       refresh();
     } catch (err) {
-      formMsg.textContent = "Your RSVP didn’t go through. Check your connection and send it again.";
+      formMsg.textContent = editing
+        ? "Your changes didn’t save. Check your connection and try again."
+        : "Your RSVP didn’t go through. Check your connection and send it again.";
       formMsg.hidden = false;
     } finally {
       btn.classList.remove("loading");
@@ -1695,21 +2225,66 @@
     }
   });
 
-  $("another").addEventListener("click", () => {
-    form.reset();
-    lastSubmitted = null;
-    partySize = 2; setSize(1);
-    dishesWrap.replaceChildren(); addDish(false);
-    picked.clear();
-    picks.replaceChildren(); COMMON.forEach(c => picks.append(makePick(c, false)));
-    $("thanks").hidden = true;
-    form.hidden = false;
-    $("name").focus();
+  $("copy-link").addEventListener("click", async () => {
+    const input = $("edit-link");
+    try {
+      await navigator.clipboard.writeText(input.value);
+    } catch {
+      input.select();
+      document.execCommand?.("copy");
+    }
+    $("copy-link").textContent = "Copied";
+    toast("Link copied. Keep it somewhere safe.");
   });
+  $("edit-link").addEventListener("focus", (e) => e.target.select());
+
+  /* ---------------- Remove ---------------- */
+  const confirmDlg = $("confirm");
+  $("remove-btn").addEventListener("click", () => {
+    if (!editing) return;
+    $("confirm-text").textContent =
+      `${$("name").value.trim() || "Your party"} will be taken off the guest list and your dishes and allergies will be deleted. This can’t be undone.`;
+    if (confirmDlg.showModal) confirmDlg.showModal();
+    else if (confirm($("confirm-text").textContent)) removeRsvp();
+    $("confirm-no").focus();
+  });
+  $("confirm-no").addEventListener("click", () => confirmDlg.close());
+  confirmDlg.addEventListener("click", (e) => { if (e.target === confirmDlg) confirmDlg.close(); });
+  $("confirm-yes").addEventListener("click", removeRsvp);
+  async function removeRsvp() {
+    if (!editing) return;
+    const yes = $("confirm-yes");
+    yes.disabled = true;
+    yes.textContent = "Removing…";
+    try {
+      await api.remove(editing.token);
+      mine.drop(editing.id);
+      confirmDlg.close?.();
+      startCreate({ focus: false });
+      toast("You’ve been removed from the guest list.");
+      refresh();
+    } catch {
+      confirmDlg.close?.();
+      formMsg.textContent = "Couldn’t remove your RSVP. Check your connection and try again.";
+      formMsg.hidden = false;
+    } finally {
+      yes.disabled = false;
+      yes.textContent = "Remove";
+    }
+  }
+
+  $("another").addEventListener("click", () => startCreate());
   $("see-guests").addEventListener("click", () => {
     if (lastSubmitted && !guestView.activated) guestView.pendingHighlight = lastSubmitted;
     show("guests");
     if (lastSubmitted && guestView.activated) guestView.highlight(lastSubmitted);
+  });
+  // Edit buttons on your own guest cards
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-edit]");
+    if (!b) return;
+    const token = mine.token(b.dataset.edit);
+    if (token) startEdit(token);
   });
 
   /* ---------------- Guest cards ---------------- */
@@ -1731,14 +2306,28 @@
     </svg>`;
 
   function cardFront(g, i) {
+    const how = travelOf(g.travel);
+    const party = h("span", { class: "party mono" });
+    if (how) party.append(svgIcon(how.icon, 13));
+    party.append(g.party_size === 1 ? "Solo" : "Party of " + g.party_size);
+    if (how) party.setAttribute("aria-label", `${g.party_size === 1 ? "Solo" : "Party of " + g.party_size}, coming ${how.by}`);
+    const dishes = (g.dishes || []).map((d, j) => {
+      const k = kindOf(g.dish_kinds?.[j]);
+      const li = h("li", k ? { class: "has-kind k-" + k.id } : {}, h("span", { text: d }));
+      if (k) li.append(h("span", { class: "tag", text: k.label }));
+      return li;
+    });
+    const isMine = mine.has(g.id);
+    const foot = h("div", { class: "card-foot mono" }, h("span", { text: isMine ? "Yours" : "RSVP’d " + relTime(g.created_at), class: isMine ? "yours" : "" }));
+    if (isMine) foot.append(h("button", { type: "button", class: "edit-btn", "data-edit": g.id, "aria-label": `Edit your RSVP for ${g.name}` }, "Edit"));
     return h("div", { class: "face front" },
       h("div", { class: "card-top" },
         h("span", { class: "mono", text: "No. " + String(i + 1).padStart(2, "0") }),
-        h("span", { class: "party mono", text: g.party_size === 1 ? "Solo" : "Party of " + g.party_size })),
+        party),
       h("h3", { class: "card-name", text: g.name }),
-      h("div", { class: "card-label mono", text: g.dishes.length > 1 ? "Bringing" : "Bringing" }),
-      h("ul", { class: "card-dishes" }, (g.dishes || []).map(d => h("li", {}, h("span", { text: d })))),
-      h("div", { class: "card-foot mono", text: "RSVP’d " + relTime(g.created_at) }));
+      h("div", { class: "card-label mono", text: "Bringing" }),
+      h("ul", { class: "card-dishes" }, dishes),
+      foot);
   }
   function cardBack() {
     const b = h("div", { class: "face back", "aria-hidden": "true" });
@@ -2000,8 +2589,26 @@
       $("st-parties").textContent = list.length;
       $("st-people").textContent = people;
       $("st-dishes").textContent = dishes;
+      this.renderMix(list);
+      // Forget saved RSVPs that were removed somewhere else
+      const ids = new Set(list.map(g => g.id));
+      mine.all().forEach(m => { if (!ids.has(m.id)) mine.drop(m.id); });
+      renderMine();
       if (this.activated) this.render(false);
       requestAnimationFrame(moveIndicator);
+    },
+    renderMix(list) {
+      const kinds = new Map(), ways = new Map();
+      for (const g of list) {
+        (g.dish_kinds || []).forEach(k => k && kinds.set(k, (kinds.get(k) || 0) + 1));
+        if (g.travel) ways.set(g.travel, (ways.get(g.travel) || 0) + 1);
+      }
+      const items = [
+        ...KINDS.filter(k => kinds.has(k.id)).map(k => h("li", { class: "k-" + k.id }, svgIcon(k.icon, 13), `${kinds.get(k.id)} ${k.label}`)),
+        ...TRAVEL.filter(t => ways.has(t.id)).map(t => h("li", {}, svgIcon(t.icon, 13), `${ways.get(t.id)} ${t.by}`))
+      ];
+      $("mix").replaceChildren(...items);
+      $("mix").hidden = items.length === 0;
     },
     render(fresh) {
       if (this.mode === "3d") {
@@ -2028,11 +2635,10 @@
       this.applyMode();
       this.render(true);
     },
-    highlight(name) {
-      if (!this.activated) { this.pendingHighlight = name; return; }
-      let i = -1;
-      for (let k = this.data.length - 1; k >= 0; k--) if (this.data[k].name === name) { i = k; break; }
-      if (i < 0) { this.pendingHighlight = name; return; }
+    highlight(id) {
+      if (!this.activated) { this.pendingHighlight = id; return; }
+      const i = this.data.findIndex(g => g.id === id);
+      if (i < 0) { this.pendingHighlight = id; return; }
       this.pendingHighlight = null;
       if (this.mode === "3d") {
         this.helix.goToIndex(i);
@@ -2050,7 +2656,7 @@
   /* ---------------- Refresh loop ---------------- */
   async function refresh() {
     const status = $("board-status");
-    const [a, g] = await Promise.allSettled([fetchAllergies(), fetchGuests()]);
+    const [a, g] = await Promise.allSettled([api.allergies(), api.guests()]);
     if (a.status === "fulfilled") {
       renderAllergies(a.value);
       status.textContent = "Live";
@@ -2068,7 +2674,16 @@
   moveIndicator();
   document.fonts?.ready.then(moveIndicator);
   window.addEventListener("resize", moveIndicator);
-  if (location.hash === "#guests") show("guests", { push: false });
+  // A private edit link looks like #edit=<token>; take the token, then tidy the URL
+  function takeEditLink() {
+    const m = location.hash.match(/^#edit=([0-9a-z-]{8,})$/i);
+    if (!m) return false;
+    history.replaceState(null, "", location.pathname + location.search);
+    startEdit(m[1], { fromLink: true });
+    return true;
+  }
+  window.addEventListener("hashchange", takeEditLink);
+  if (!takeEditLink() && location.hash === "#guests") show("guests", { push: false });
   refresh();
   setInterval(() => { if (!document.hidden) refresh(); }, 30000);
   document.addEventListener("visibilitychange", () => { if (!document.hidden) refresh(); });
