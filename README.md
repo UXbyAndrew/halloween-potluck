@@ -2,7 +2,9 @@
 
 A single-page RSVP and food intake form for the Halloween potluck. Guests enter their name, party size, the dishes they're bringing, and any allergies in their party. A live allergy board shows every allergen reported so far and warns guests when a dish they type looks like it contains one.
 
-A second tab, **Who's coming**, shows everyone on the list as cards on a 3D ring you can drag, swipe or arrow through. There is also a flat grid view, which is the default for people who prefer reduced motion.
+An **Info** tab has the date, time and address (with directions and an add-to-calendar file), the activities, the afternoon's schedule, the costume note and the embedded Proxi trick-or-treat map. The map only loads once someone opens that tab.
+
+A third tab, **Who's coming**, shows everyone on the list as cards on a 3D ring you can drag, swipe or arrow through. There is also a flat grid view, which is the default for people who prefer reduced motion.
 
 Each dish can be tagged **Savory**, **Sweet** or **Spooky**, and each party can say whether they're coming by **bike, bus, car or walking**. The guest list shows a running breakdown of both.
 
