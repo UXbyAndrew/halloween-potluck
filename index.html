@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Halloween Potluck RSVP</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎃</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Figtree:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F6E9CF;
+    --bg-deep: #EBD7AE;
+    --surface: #FFF8EA;
+    --ink: #2B1631;
+    --ink-soft: #5E4561;
+    --pumpkin: #C9560F;
+    --pumpkin-strong: #A8440A;
+    --gold: #B9821C;
+    --moss: #56662B;
+    --line: #D9BF8C;
+    --chip-bg: #F3D9A8;
+    --chip-ink: #6B2A0C;
+    --danger: #A42B1C;
+    --on-pumpkin: #FFF8EA;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1E0F24;
+      --bg-deep: #2B1631;
+      --surface: #2F1A36;
+      --ink: #F6E9CF;
+      --ink-soft: #CDB7C9;
+      --pumpkin: #F07A26;
+      --pumpkin-strong: #FF8F3D;
+      --gold: #E9B44C;
+      --moss: #A3B35E;
+      --line: #4A2D52;
+      --chip-bg: #4A2416;
+      --chip-ink: #FFC58A;
+      --danger: #FF8A74;
+      --on-pumpkin: #1E0F24;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1E0F24; --bg-deep: #2B1631; --surface: #2F1A36; --ink: #F6E9CF;
+    --ink-soft: #CDB7C9; --pumpkin: #F07A26; --pumpkin-strong: #FF8F3D; --gold: #E9B44C;
+    --moss: #A3B35E; --line: #4A2D52; --chip-bg: #4A2416; --chip-ink: #FFC58A;
+    --danger: #FF8A74; --on-pumpkin: #1E0F24; color-scheme: dark;
+  }
+
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  *, *::before, *::after { box-sizing: inherit; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 68rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 4rem;
+  }
+
+  /* Hero */
+  .hero {
+    position: relative;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px dashed var(--line);
+  }
+  .hero h1 {
+    font-family: "Pirata One", "Times New Roman", serif;
+    font-weight: 400;
+    font-size: clamp(3.25rem, 11vw, 7rem);
+    line-height: 0.92;
+    letter-spacing: 0.01em;
+    margin: 0 0 0.75rem;
+    color: var(--pumpkin);
+  }
+  .hero p {
+    margin: 0;
+    max-width: 34rem;
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+  }
+  .vine {
+    display: block;
+    width: 100%;
+    max-width: 22rem;
+    height: auto;
+    margin-top: 1.5rem;
+    color: var(--moss);
+  }
+
+  /* Layout */
+  .layout {
+    display: grid;
+    gap: 2rem;
+  }
+  @media (min-width: 860px) {
+    .layout {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      align-items: start;
+      gap: 3rem;
+    }
+    .board { position: sticky; top: calc(1.5rem + env(safe-area-inset-top, 0px)); }
+  }
+
+  /* Allergy board: the standout element */
+  .board {
+    background: var(--pumpkin);
+    color: var(--on-pumpkin);
+    border-radius: 28px 28px 8px 8px;
+    padding: 1.75rem 1.5rem 1.5rem;
+    position: relative;
+  }
+  .board::before {
+    /* pumpkin stem */
+    content: "";
+    position: absolute;
+    top: -14px; left: 2.25rem;
+    width: 18px; height: 22px;
+    background: var(--moss);
+    border-radius: 4px 6px 2px 2px;
+    transform: rotate(-8deg);
+  }
+  .board h2 {
+    font-family: "Pirata One", "Times New Roman", serif;
+    font-weight: 400;
+    font-size: 2.25rem;
+    line-height: 1;
+    margin: 0 0 0.5rem;
+  }
+  .board .lede {
+    margin: 0 0 1.25rem;
+    font-size: 0.98rem;
+    opacity: 0.92;
+  }
+  .chips {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .chips li {
+    background: var(--surface);
+    color: var(--chip-ink);
+    border-radius: 999px;
+    padding: 0.35rem 0.85rem;
+    font-weight: 700;
+    font-size: 0.98rem;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.4rem;
+  }
+  .chips .count {
+    font-weight: 500;
+    font-size: 0.82rem;
+    opacity: 0.75;
+  }
+  .board .empty {
+    margin: 0;
+    padding: 1rem;
+    border: 2px dashed currentColor;
+    border-radius: 12px;
+    opacity: 0.9;
+    font-size: 0.98rem;
+  }
+  .board .status-line {
+    margin: 1rem 0 0;
+    font-size: 0.85rem;
+    opacity: 0.8;
+  }
+
+  /* Form */
+  .form-card {
+    background: var(--surface);
+    border: 2px solid var(--line);
+    border-radius: 12px;
+    padding: 1.75rem 1.5rem;
+  }
+  .form-card h2 {
+    font-family: "Pirata One", "Times New Roman", serif;
+    font-weight: 400;
+    font-size: 2.25rem;
+    line-height: 1;
+    margin: 0 0 1.5rem;
+    color: var(--ink);
+  }
+  .field { margin-bottom: 1.4rem; }
+  .field label, .field .label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+  .hint {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    margin: -0.2rem 0 0.5rem;
+  }
+  input[type="text"], input[type="number"], textarea {
+    width: 100%;
+    font: inherit;
+    color: var(--ink);
+    background: var(--bg);
+    border: 2px solid var(--line);
+    border-radius: 10px;
+    padding: 0.7rem 0.85rem;
+    transition: border-color 0.15s ease;
+  }
+  textarea { min-height: 6rem; resize: vertical; }
+  input:focus-visible, textarea:focus-visible, button:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 2px;
+    border-color: var(--pumpkin);
+  }
+  input[aria-invalid="true"] { border-color: var(--danger); }
+
+  .stepper {
+    display: inline-flex;
+    align-items: stretch;
+    border: 2px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--bg);
+  }
+  .stepper button {
+    font: inherit;
+    font-size: 1.3rem;
+    font-weight: 700;
+    width: 3rem;
+    border: 0;
+    background: transparent;
+    color: var(--pumpkin);
+    cursor: pointer;
+  }
+  .stepper button:hover { background: var(--bg-deep); }
+  .stepper input {
+    width: 4.5rem;
+    border: 0;
+    border-radius: 0;
+    text-align: center;
+    font-weight: 700;
+    -moz-appearance: textfield;
+  }
+  .stepper input::-webkit-outer-spin-button,
+  .stepper input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+  .dish-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  .dish-row + .dish-row { margin-top: 0.6rem; }
+  .remove-dish {
+    flex: none;
+    font: inherit;
+    font-size: 0.92rem;
+    border: 0;
+    background: none;
+    color: var(--ink-soft);
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+  .add-dish {
+    margin-top: 0.7rem;
+    font: inherit;
+    font-weight: 700;
+    font-size: 0.98rem;
+    color: var(--pumpkin-strong);
+    background: none;
+    border: 2px dashed var(--line);
+    border-radius: 10px;
+    padding: 0.55rem 0.9rem;
+    cursor: pointer;
+  }
+  .add-dish:hover { border-color: var(--pumpkin); }
+  .add-dish[hidden] { display: none; }
+
+  .submit {
+    width: 100%;
+    font: inherit;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--on-pumpkin);
+    background: var(--pumpkin);
+    border: 0;
+    border-radius: 999px;
+    padding: 0.95rem 1.5rem;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.1s ease;
+  }
+  .submit:hover { background: var(--pumpkin-strong); }
+  .submit:active { transform: translateY(1px); }
+  .submit[disabled] { opacity: 0.6; cursor: progress; }
+
+  .msg {
+    margin-top: 1rem;
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    font-weight: 500;
+  }
+  .msg[hidden] { display: none; }
+  .msg.error { border: 2px solid var(--danger); color: var(--danger); }
+  .msg.ok { border: 2px solid var(--moss); color: var(--moss); }
+
+  .thanks { text-align: center; padding: 1.5rem 0.5rem; }
+  .thanks[hidden] { display: none; }
+  .thanks .big {
+    font-family: "Pirata One", "Times New Roman", serif;
+    font-size: 2.75rem;
+    line-height: 1;
+    color: var(--pumpkin);
+    margin: 0.5rem 0;
+  }
+  .thanks button {
+    margin-top: 1rem;
+    font: inherit;
+    font-weight: 700;
+    background: none;
+    border: 2px solid var(--line);
+    color: var(--ink);
+    border-radius: 999px;
+    padding: 0.6rem 1.2rem;
+    cursor: pointer;
+  }
+
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .chips li.new { animation: pop 0.5s ease-out; }
+    @keyframes pop {
+      0% { transform: scale(0.6); opacity: 0; }
+      70% { transform: scale(1.08); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+  <header class="hero">
+    <h1>Halloween Potluck</h1>
+    <p>Tell us who’s coming and what you’ll bring. Check the allergy list before you pick a dish so everyone can eat safely.</p>
+    <svg class="vine" viewBox="0 0 360 40" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <path d="M2 22 C 40 6, 70 36, 110 20 S 180 6, 220 22 S 300 36, 358 16"/>
+      <path d="M62 24 c 6 -10 18 -12 22 -4" />
+      <path d="M160 14 c 4 10 16 14 22 6" />
+      <path d="M262 28 c 6 -10 18 -12 22 -4" />
+      <circle cx="110" cy="20" r="3" fill="currentColor"/>
+      <circle cx="220" cy="22" r="3" fill="currentColor"/>
+    </svg>
+  </header>
+
+  <div class="layout">
+    <aside class="board" aria-labelledby="board-title">
+      <h2 id="board-title">Allergies at the party</h2>
+      <p class="lede">Please keep these ingredients out of your dish, or label it clearly if they’re in there.</p>
+      <div id="allergy-list" aria-live="polite">
+        <p class="empty">Loading the list…</p>
+      </div>
+      <p class="status-line" id="board-status"></p>
+    </aside>
+
+    <section class="form-card" aria-labelledby="form-title">
+      <form id="rsvp" novalidate>
+        <h2 id="form-title">RSVP</h2>
+
+        <div class="field">
+          <label for="name">Your name</label>
+          <input id="name" name="name" type="text" autocomplete="name" maxlength="100" required>
+        </div>
+
+        <div class="field">
+          <span class="label" id="size-label">People in your party</span>
+          <span class="hint" id="size-hint">Include yourself.</span>
+          <div class="stepper" role="group" aria-labelledby="size-label" aria-describedby="size-hint">
+            <button type="button" id="size-down" aria-label="One fewer person">−</button>
+            <input id="party_size" name="party_size" type="number" inputmode="numeric" min="1" max="20" value="1" aria-labelledby="size-label">
+            <button type="button" id="size-up" aria-label="One more person">+</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <span class="label" id="dish-label">Dish you’re bringing</span>
+          <span class="hint">Look at the allergy list first.</span>
+          <div id="dishes">
+            <div class="dish-row">
+              <input type="text" name="dish" maxlength="120" aria-labelledby="dish-label" placeholder="e.g. Butternut squash soup" required>
+            </div>
+          </div>
+          <button type="button" class="add-dish" id="add-dish">+ Add another dish</button>
+        </div>
+
+        <div class="field">
+          <label for="allergies">Allergies in your party</label>
+          <span class="hint" id="allergy-hint">Optional. Separate with commas, e.g. peanuts, shellfish, gluten.</span>
+          <textarea id="allergies" name="allergies" maxlength="500" aria-describedby="allergy-hint"></textarea>
+        </div>
+
+        <button type="submit" class="submit" id="submit">Send RSVP</button>
+        <div class="msg" id="msg" role="alert" hidden></div>
+      </form>
+
+      <div class="thanks" id="thanks" hidden>
+        <p>🎃</p>
+        <p class="big">You’re on the list</p>
+        <p id="thanks-detail"></p>
+        <button type="button" id="another">RSVP for someone else</button>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script>
+  const SUPABASE_URL = "https://zdvtbchivhqurmekfgek.supabase.co";
+  const SUPABASE_KEY = "sb_publishable__mB4Sbp3JXW5QcS-jqLi5Q_inSnE4hy";
+  const headers = {
+    "apikey": SUPABASE_KEY,
+    "Content-Type": "application/json"
+  };
+
+  const $ = (id) => document.getElementById(id);
+  const form = $("rsvp");
+  const msg = $("msg");
+  const sizeInput = $("party_size");
+  const dishesWrap = $("dishes");
+  const addDishBtn = $("add-dish");
+  let knownAllergens = new Set();
+
+  // Party size stepper
+  const clampSize = (n) => Math.min(20, Math.max(1, Number.isFinite(n) ? n : 1));
+  $("size-down").addEventListener("click", () => { sizeInput.value = clampSize(+sizeInput.value - 1); });
+  $("size-up").addEventListener("click", () => { sizeInput.value = clampSize(+sizeInput.value + 1); });
+  sizeInput.addEventListener("blur", () => { sizeInput.value = clampSize(parseInt(sizeInput.value, 10)); });
+
+  // Second dish
+  addDishBtn.addEventListener("click", () => {
+    const row = document.createElement("div");
+    row.className = "dish-row";
+    row.innerHTML = '<input type="text" name="dish" maxlength="120" aria-label="Second dish" placeholder="e.g. Caramel apples">' +
+                    '<button type="button" class="remove-dish">Remove</button>';
+    dishesWrap.appendChild(row);
+    addDishBtn.hidden = true;
+    row.querySelector("input").focus();
+    row.querySelector(".remove-dish").addEventListener("click", () => {
+      row.remove();
+      addDishBtn.hidden = false;
+      addDishBtn.focus();
+    });
+  });
+
+  // Allergy board
+  function normalize(raw) {
+    return raw
+      .split(/[,;\n\/]|\band\b|&/i)
+      .map(s => s.trim().replace(/\.$/, ""))
+      .filter(s => s && !/^(none|n\/?a|no|nothing|-)$/i.test(s))
+      .map(s => s.toLowerCase());
+  }
+  const titleCase = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+
+  function renderAllergies(rows) {
+    const counts = new Map();
+    for (const r of rows) {
+      for (const a of normalize(r.allergies || "")) {
+        counts.set(a, (counts.get(a) || 0) + 1);
+      }
+    }
+    const box = $("allergy-list");
+    if (counts.size === 0) {
+      box.innerHTML = '<p class="empty">No allergies reported yet. If anyone in your party has one, add it to the form.</p>';
+      knownAllergens = new Set();
+      return;
+    }
+    const sorted = [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+    const ul = document.createElement("ul");
+    ul.className = "chips";
+    for (const [name, n] of sorted) {
+      const li = document.createElement("li");
+      li.textContent = titleCase(name);
+      if (n > 1) {
+        const c = document.createElement("span");
+        c.className = "count";
+        c.textContent = "×" + n;
+        li.appendChild(c);
+      }
+      if (knownAllergens.size && !knownAllergens.has(name)) li.classList.add("new");
+      ul.appendChild(li);
+    }
+    box.replaceChildren(ul);
+    knownAllergens = new Set(counts.keys());
+  }
+
+  async function loadAllergies() {
+    try {
+      const res = await fetch(SUPABASE_URL + "/rest/v1/rpc/halloween_allergies", {
+        method: "POST", headers, body: "{}"
+      });
+      if (!res.ok) throw new Error(res.status);
+      renderAllergies(await res.json());
+      $("board-status").textContent = "Updates as guests RSVP.";
+    } catch (e) {
+      $("allergy-list").innerHTML = '<p class="empty">The allergy list didn’t load. Refresh the page to try again.</p>';
+    }
+  }
+
+  // Submit
+  function showError(text) {
+    msg.className = "msg error";
+    msg.textContent = text;
+    msg.hidden = false;
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    msg.hidden = true;
+    form.querySelectorAll("[aria-invalid]").forEach(el => el.removeAttribute("aria-invalid"));
+
+    const nameEl = $("name");
+    const name = nameEl.value.trim();
+    const party_size = clampSize(parseInt(sizeInput.value, 10));
+    const dishInputs = [...dishesWrap.querySelectorAll('input[name="dish"]')];
+    const dishes = dishInputs.map(i => i.value.trim()).filter(Boolean);
+    const allergies = $("allergies").value.trim();
+
+    if (!name) {
+      nameEl.setAttribute("aria-invalid", "true");
+      nameEl.focus();
+      return showError("Add your name so the host knows who’s coming.");
+    }
+    if (dishes.length === 0) {
+      dishInputs[0].setAttribute("aria-invalid", "true");
+      dishInputs[0].focus();
+      return showError("Add the dish you’re bringing.");
+    }
+
+    const btn = $("submit");
+    btn.disabled = true;
+    btn.textContent = "Sending…";
+    try {
+      const res = await fetch(SUPABASE_URL + "/rest/v1/halloween_rsvps", {
+        method: "POST",
+        headers: { ...headers, "Prefer": "return=minimal" },
+        body: JSON.stringify({ name, party_size, dishes, allergies: allergies || null })
+      });
+      if (!res.ok) throw new Error(res.status);
+
+      $("thanks-detail").textContent =
+        `${party_size} ${party_size === 1 ? "person" : "people"}, bringing ${dishes.join(" and ")}.`;
+      form.hidden = true;
+      $("thanks").hidden = false;
+      $("another").focus();
+      loadAllergies();
+    } catch (err) {
+      showError("Your RSVP didn’t go through. Check your connection and send it again.");
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Send RSVP";
+    }
+  });
+
+  $("another").addEventListener("click", () => {
+    form.reset();
+    sizeInput.value = 1;
+    dishesWrap.querySelectorAll(".dish-row").forEach((r, i) => { if (i > 0) r.remove(); });
+    addDishBtn.hidden = false;
+    $("thanks").hidden = true;
+    form.hidden = false;
+    $("name").focus();
+  });
+
+  loadAllergies();
+  setInterval(loadAllergies, 30000);
+</script>
+</body>
+</html>
