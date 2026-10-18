@@ -181,13 +181,17 @@
   .brand svg { width: 26px; height: 26px; flex: none; }
   .brand em { font-style: italic; color: var(--accent); }
 
+  .brand { border-radius: 10px; transition: opacity 0.2s ease; }
+  .brand:hover { opacity: 0.85; }
+  .brand[aria-current="page"] em { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+
+  /* RSVP is the primary call to action, Who's coming the secondary one.
+     A ring slides to whichever is open, and fades out on the Info page. */
   .tabs {
     position: relative;
     display: inline-flex;
+    gap: 8px;
     padding: 4px;
-    border-radius: 999px;
-    background: var(--surface);
-    border: 1px solid var(--border);
   }
   .tab {
     position: relative;
@@ -195,20 +199,31 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    height: 36px;
-    padding: 0 16px;
-    border: 0;
+    height: 40px;
+    padding: 0 18px;
     border-radius: 999px;
-    background: none;
-    color: var(--text-2);
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 14.5px;
+    font-weight: 600;
     cursor: pointer;
     white-space: nowrap;
-    transition: color 0.25s ease;
+    transition: transform 0.15s ease, filter 0.2s ease, background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
   }
-  .tab:hover { color: var(--text); }
-  .tab[aria-selected="true"] { color: var(--accent-ink); }
+  .tab:active { transform: scale(0.97); }
+  .tab-primary {
+    border: 0;
+    background: linear-gradient(180deg, var(--accent-2), var(--accent));
+    color: var(--accent-ink);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.28) inset, 0 8px 20px -8px var(--glow);
+  }
+  .tab-primary:hover { filter: brightness(1.06); }
+  .tab-secondary {
+    border: 1px solid var(--border-strong);
+    background: color-mix(in srgb, var(--surface-solid) 70%, transparent);
+    color: var(--text);
+    font-weight: 500;
+  }
+  .tab-secondary:hover { border-color: color-mix(in srgb, var(--text) 40%, transparent); }
+  .tab-secondary[aria-selected="true"] { background: var(--surface-solid); border-color: transparent; }
   .tab .badge {
     min-width: 20px;
     height: 20px;
@@ -220,22 +235,22 @@
     font-size: 11px;
     background: var(--accent-soft);
     color: var(--accent);
-    transition: background 0.25s ease, color 0.25s ease;
   }
-  .tab[aria-selected="true"] .badge { background: rgba(0, 0, 0, 0.14); color: var(--accent-ink); }
   .tab-indicator {
     position: absolute;
-    top: 4px;
-    bottom: 4px;
+    top: 0;
+    bottom: 0;
     left: 0;
-    width: 0;
     border-radius: 999px;
-    background: linear-gradient(180deg, var(--accent-2), var(--accent));
-    box-shadow: 0 6px 18px -6px var(--glow), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    border: 1.5px solid var(--text);
+    box-shadow: 0 0 18px -4px var(--glow);
+    pointer-events: none;
     transform: translateX(var(--x, 0));
     width: var(--w, 0);
-    transition: transform 0.45s var(--ease-out), width 0.45s var(--ease-out);
+    opacity: 0.9;
+    transition: transform 0.45s var(--ease-out), width 0.45s var(--ease-out), opacity 0.3s ease, scale 0.3s ease;
   }
+  .tab-indicator.off { opacity: 0; scale: 0.92; }
 
   /* ---------- Layout ---------- */
   .shell {
@@ -1148,6 +1163,34 @@
   .info-hero .lede { margin-bottom: 28px; }
   .cta-row { display: flex; flex-wrap: wrap; gap: 10px; }
   .cta-row .ghost { height: 46px; padding: 0 20px; display: inline-flex; align-items: center; gap: 8px; }
+  .cal-menu { position: relative; }
+  .cal-menu summary { list-style: none; cursor: pointer; user-select: none; }
+  .cal-menu summary::-webkit-details-marker { display: none; }
+  .cal-menu .chev { transition: transform 0.25s var(--ease-out); }
+  .cal-menu[open] .chev { transform: rotate(180deg); }
+  .cal-menu .menu {
+    position: absolute;
+    z-index: 15;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 240px;
+    padding: 6px;
+    border-radius: var(--r-md);
+    border: 1px solid var(--border-strong);
+    background: var(--surface-solid);
+    box-shadow: 0 20px 50px -16px rgba(0, 0, 0, 0.5);
+    animation: row-in 0.25s var(--ease-out) both;
+  }
+  .cal-menu .menu a {
+    display: block;
+    padding: 12px 14px;
+    border-radius: 10px;
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .cal-menu .menu a:hover, .cal-menu .menu a:focus-visible { background: var(--accent-soft); color: var(--accent); }
 
   .ticket {
     position: relative;
@@ -1325,6 +1368,8 @@
   @media (max-width: 640px) {
     .map-frame { height: 70vh; margin: 0 calc(-1 * max(16px, env(safe-area-inset-left, 0px))); border-radius: 0; border-left: 0; border-right: 0; }
   }
+
+  canvas.confetti { position: fixed; inset: 0; z-index: 60; pointer-events: none; }
 
   /* ---------- Dish kinds ---------- */
   .kinds {
@@ -1571,7 +1616,8 @@
 
   @media (max-width: 420px) {
     .brand span { display: none; }
-    .tab { padding: 0 13px; }
+    .tab { padding: 0 14px; height: 38px; }
+    .tabs { gap: 6px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -1587,7 +1633,7 @@
 <body>
 <header class="topbar" id="topbar">
   <div class="topbar-inner">
-    <a class="brand" href="#rsvp" aria-label="Halloween Potluck, RSVP">
+    <a class="brand" id="brand" href="#info" aria-label="Halloween Potluck, event info">
       <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
         <path d="M16 9c-2.2-.9-5.6-.9-8 1.2C4.6 13 4.4 20.2 7.4 24c2.2 2.8 5.3 3.3 8.6 2.5 3.3.8 6.4.3 8.6-2.5 3-3.8 2.8-11-.6-13.8-2.4-2.1-5.8-2.1-8-1.2Z" fill="var(--accent)"/>
         <path d="M16 9.4c-1.6 2.6-1.8 10.4 0 17M11.2 10.6c-2 3.4-2 11.6.6 15.4M20.8 10.6c2 3.4 2 11.6-.6 15.4" stroke="rgba(0,0,0,.28)" stroke-width="1.1"/>
@@ -1597,9 +1643,8 @@
     </a>
     <nav class="tabs" role="tablist" aria-label="Sections" id="tabs">
       <span class="tab-indicator" id="tab-indicator" aria-hidden="true"></span>
-      <button class="tab" role="tab" id="tab-rsvp" aria-controls="view-rsvp" aria-selected="true">RSVP</button>
-      <button class="tab" role="tab" id="tab-info" aria-controls="view-info" aria-selected="false" tabindex="-1">Info</button>
-      <button class="tab" role="tab" id="tab-guests" aria-controls="view-guests" aria-selected="false" tabindex="-1">
+      <button class="tab tab-primary" role="tab" id="tab-rsvp" aria-controls="view-rsvp" aria-selected="true">RSVP</button>
+      <button class="tab tab-secondary" role="tab" id="tab-guests" aria-controls="view-guests" aria-selected="false" tabindex="-1">
         Who’s coming <span class="badge" id="guest-count" aria-label="">–</span>
       </button>
     </nav>
@@ -1733,7 +1778,7 @@
   </section>
 
   <!-- ============ Info ============ -->
-  <section class="view" id="view-info" role="tabpanel" aria-labelledby="tab-info" hidden>
+  <section class="view" id="view-info" aria-label="Event info" hidden>
     <div class="info-hero">
       <div>
         <div class="eyebrow mono">Event details</div>
@@ -1741,10 +1786,17 @@
         <p class="lede">Story time, crafts and games, potion making and autumn treats, then trick-or-treating from 5 to 6. Come dressed in your favorite magical or Halloween-inspired costume.</p>
         <div class="cta-row">
           <button type="button" class="pill-btn" data-go="rsvp">RSVP now</button>
-          <button type="button" class="ghost" id="add-cal">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2" y="3" width="12" height="11" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3M8 8.5v3.5M6.25 10.25h3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-            Add to calendar
-          </button>
+          <details class="cal-menu" id="cal-menu">
+            <summary class="ghost">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2" y="3" width="12" height="11" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3M8 8.5v3.5M6.25 10.25h3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+              Add to calendar
+              <svg class="chev" width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="menu">
+              <a href="halloween-potluck.ics">Apple Calendar or Outlook</a>
+              <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Halloween%20Potluck&amp;dates=20261031T140000Z%2F20261031T170000Z&amp;location=Lotterstraat%2010%2C%202021%20TG%20Haarlem&amp;details=Story%20time%2C%20crafts%20%26%20games%2C%20potion%20making%2C%20autumn%20treats%20and%20lots%20of%20Halloween%20magic.%20Trick-or-treating%205%E2%80%936%20PM.%20Come%20dressed%20in%20your%20favorite%20magical%20or%20Halloween-inspired%20costume.%0A%0ARSVP%3A%20https%3A%2F%2Fuxbyandrew.github.io%2Fhalloween-potluck%2F" target="_blank" rel="noopener">Google Calendar</a>
+            </div>
+          </details>
         </div>
       </div>
 
@@ -2055,7 +2107,8 @@
   }
 
   /* ---------------- Tabs ---------------- */
-  const tabs = { rsvp: $("tab-rsvp"), info: $("tab-info"), guests: $("tab-guests") };
+  // Info has no tab of its own: the logo opens it
+  const tabs = { rsvp: $("tab-rsvp"), guests: $("tab-guests") };
   const views = { rsvp: $("view-rsvp"), info: $("view-info"), guests: $("view-guests") };
   const TAB_ORDER = Object.keys(tabs);
   const indicator = $("tab-indicator");
@@ -2063,18 +2116,24 @@
 
   function moveIndicator() {
     const t = tabs[current];
+    indicator.classList.toggle("off", !t);
+    if (current === "info") $("brand").setAttribute("aria-current", "page");
+    else $("brand").removeAttribute("aria-current");
+    if (!t) return;
+    // The ring sits 4px outside the button
     indicator.style.setProperty("--x", t.offsetLeft - 4 + "px");
-    indicator.style.setProperty("--w", t.offsetWidth + "px");
+    indicator.style.setProperty("--w", t.offsetWidth + 8 + "px");
   }
+  $("brand").addEventListener("click", (e) => { e.preventDefault(); show("info"); });
   function show(name, { focusTab = false, push = true } = {}) {
     if (!views[name]) name = "rsvp";
     if (name === current) { moveIndicator(); return Promise.resolve(); }
     const swap = () => {
-      for (const k of Object.keys(views)) {
-        const on = k === name;
-        views[k].hidden = !on;
-        tabs[k].setAttribute("aria-selected", on);
-        tabs[k].tabIndex = on ? 0 : -1;
+      for (const k of Object.keys(views)) views[k].hidden = k !== name;
+      for (const k of TAB_ORDER) {
+        tabs[k].setAttribute("aria-selected", k === name);
+        // Keep one tab reachable by keyboard even while Info is open
+        tabs[k].tabIndex = k === name || (name === "info" && k === "rsvp") ? 0 : -1;
       }
       current = name;
       moveIndicator();
@@ -2085,7 +2144,7 @@
     let done;
     if (document.startViewTransition && !reduceMotion.matches) done = document.startViewTransition(swap).updateCallbackDone.catch(() => {});
     else { swap(); done = Promise.resolve(); }
-    if (focusTab) tabs[name].focus();
+    if (focusTab) tabs[name]?.focus();
     if (push) history.replaceState(null, "", name === "rsvp" ? location.pathname + location.search : "#" + name);
     return done;
   }
@@ -2094,7 +2153,7 @@
     const dir = { ArrowLeft: -1, ArrowRight: 1 }[e.key];
     if (!dir) return;
     e.preventDefault();
-    const i = TAB_ORDER.indexOf(current);
+    const i = Math.max(0, TAB_ORDER.indexOf(document.activeElement?.id?.replace("tab-", "")));
     show(TAB_ORDER[(i + dir + TAB_ORDER.length) % TAB_ORDER.length], { focusTab: true });
   });
   const hashView = () => ({ "#guests": "guests", "#info": "info" })[location.hash] || "rsvp";
@@ -2106,27 +2165,11 @@
     map.addEventListener("load", () => $("map-frame").classList.add("loaded"), { once: true });
     map.src = map.dataset.src;
   }
-  $("add-cal").addEventListener("click", () => {
-    const ics = [
-      "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Halloween Potluck//EN", "CALSCALE:GREGORIAN",
-      "BEGIN:VEVENT",
-      "UID:halloween-potluck-2026@uxbyandrew.github.io",
-      "DTSTAMP:" + new Date().toISOString().replace(/[-:]|\.\d{3}/g, ""),
-      "DTSTART:20261031T140000Z",
-      "DTEND:20261031T170000Z",
-      "SUMMARY:Halloween Potluck",
-      "LOCATION:Lotterstraat 10\\, 2021 TG Haarlem",
-      "DESCRIPTION:Story time\\, crafts & games\\, potion making\\, autumn treats and lots of Halloween magic. Trick-or-treating 5–6 PM. Come in your favorite magical or Halloween-inspired costume.\\n\\nRSVP and details: " + location.origin + location.pathname,
-      "BEGIN:VALARM", "TRIGGER:-PT2H", "ACTION:DISPLAY", "DESCRIPTION:Halloween Potluck", "END:VALARM",
-      "END:VEVENT", "END:VCALENDAR"
-    ].join("\r\n");
-    const url = URL.createObjectURL(new Blob([ics], { type: "text/calendar;charset=utf-8" }));
-    const a = h("a", { href: url, download: "halloween-potluck.ics" });
-    document.body.append(a);
-    a.click();
-    a.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-  });
+  // Close the calendar menu after picking an option or clicking elsewhere
+  const calMenu = $("cal-menu");
+  calMenu.addEventListener("click", (e) => { if (e.target.closest(".menu a")) calMenu.open = false; });
+  document.addEventListener("click", (e) => { if (calMenu.open && !calMenu.contains(e.target)) calMenu.open = false; });
+  calMenu.addEventListener("keydown", (e) => { if (e.key === "Escape") { calMenu.open = false; calMenu.querySelector("summary").focus(); } });
   document.addEventListener("click", (e) => {
     const go = e.target.closest("[data-go]");
     if (go) { show(go.dataset.go); if (go.dataset.go === "rsvp") $("name").focus({ preventScroll: true }); }
@@ -2440,6 +2483,88 @@
   }
   $("name").addEventListener("input", () => clearError("name"));
 
+  /* ---------------- Celebration confetti ---------------- */
+  // Kid-friendly Halloween bits; ghosts float up instead of falling
+  const CONFETTI = ["🎃", "🎃", "👻", "🍬", "🍬", "🍭", "🍫", "⭐", "🌙", "🧁", "🍂", "🪄"];
+  const sprites = new Map();
+  function sprite(ch) {
+    if (!sprites.has(ch)) {
+      const c = document.createElement("canvas");
+      c.width = c.height = 72;
+      const x = c.getContext("2d");
+      x.font = '56px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif';
+      x.textAlign = "center";
+      x.textBaseline = "middle";
+      x.fillText(ch, 36, 40);
+      sprites.set(ch, c);
+    }
+    return sprites.get(ch);
+  }
+  function celebrate({ from, amount = 1 } = {}) {
+    if (reduceMotion.matches) return;
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    const W = innerWidth, H = innerHeight;
+    const cv = h("canvas", { class: "confetti", "aria-hidden": "true" });
+    cv.width = W * dpr; cv.height = H * dpr;
+    document.body.append(cv);
+    const ctx = cv.getContext("2d");
+    ctx.scale(dpr, dpr);
+    const small = W < 640;
+    const parts = [];
+    const add = (x, y, angle, speed) => {
+      const ch = CONFETTI[Math.floor(Math.random() * CONFETTI.length)];
+      const ghost = ch === "👻";
+      parts.push({
+        ch, x, y,
+        vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
+        g: ghost ? -60 : 900 + Math.random() * 300,
+        rot: Math.random() * Math.PI * 2, vr: (Math.random() - 0.5) * (ghost ? 2 : 9),
+        size: (small ? 24 : 30) + Math.random() * (small ? 14 : 20),
+        wob: Math.random() * Math.PI * 2, ghost,
+        life: 0, max: ghost ? 3.6 + Math.random() : 2.6 + Math.random() * 1.2
+      });
+    };
+    const ox = from?.x ?? W / 2, oy = from?.y ?? H / 2;
+    const burst = Math.round((small ? 36 : 54) * amount);
+    for (let i = 0; i < burst; i++) add(ox, oy, -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 1.4, 380 + Math.random() * 520);
+    const side = Math.round((small ? 18 : 30) * amount);
+    for (let i = 0; i < side; i++) {
+      add(-20, H + 10, -Math.PI / 2 + 0.35 + Math.random() * 0.45, 700 + Math.random() * 500);
+      add(W + 20, H + 10, -Math.PI / 2 - 0.35 - Math.random() * 0.45, 700 + Math.random() * 500);
+    }
+    let last = performance.now();
+    const tick = (t) => {
+      const dt = Math.min(0.033, (t - last) / 1000);
+      last = t;
+      ctx.clearRect(0, 0, W, H);
+      let alive = 0;
+      for (const p of parts) {
+        p.life += dt;
+        if (p.life > p.max) continue;
+        alive++;
+        const drag = p.ghost ? 0.94 : 0.985;
+        p.vx *= Math.pow(drag, dt * 60);
+        p.vy = p.vy * Math.pow(p.ghost ? 0.95 : 0.99, dt * 60) + p.g * dt;
+        p.wob += dt * (p.ghost ? 3 : 6);
+        p.x += (p.vx + Math.sin(p.wob) * (p.ghost ? 40 : 18)) * dt;
+        p.y += p.vy * dt;
+        p.rot += p.vr * dt;
+        const fadeIn = Math.min(1, p.life / 0.12);
+        const fadeOut = Math.min(1, (p.max - p.life) / 0.6);
+        ctx.globalAlpha = Math.max(0, Math.min(fadeIn, fadeOut));
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.ghost ? Math.sin(p.wob) * 0.25 : p.rot);
+        ctx.drawImage(sprite(p.ch), -p.size / 2, -p.size / 2, p.size, p.size);
+        ctx.restore();
+      }
+      ctx.globalAlpha = 1;
+      if (alive) requestAnimationFrame(tick);
+      else cv.remove();
+    };
+    requestAnimationFrame(tick);
+  }
+
   /* ---------------- Create / edit mode ---------------- */
   let editing = null;      // { id, token } while editing an existing RSVP
   let lastSubmitted = null; // id of the RSVP just saved, for the guest-list highlight
@@ -2572,11 +2697,17 @@
         `${name}, party of ${partySize}, bringing ${joinList(dishes)}${how ? ", coming " + how.by : ""}.`;
       $("edit-link").value = link;
       $("copy-link").textContent = "Copy";
+      const wasEditing = !!editing;
       editing = null;
       setMode();
       form.hidden = true;
       $("thanks").hidden = false;
-      $("thanks").focus();
+      $("thanks").scrollIntoView({ block: "center", behavior: "auto" });
+      $("thanks").focus({ preventScroll: true });
+      requestAnimationFrame(() => {
+        const r = $("thanks").querySelector(".check").getBoundingClientRect();
+        celebrate({ from: { x: r.left + r.width / 2, y: r.top + r.height / 2 }, amount: wasEditing ? 0.5 : 1 });
+      });
       refresh();
     } catch (err) {
       formMsg.textContent = editing
