@@ -1643,10 +1643,10 @@
     </a>
     <nav class="tabs" role="tablist" aria-label="Sections" id="tabs">
       <span class="tab-indicator" id="tab-indicator" aria-hidden="true"></span>
-      <button class="tab tab-primary" role="tab" id="tab-rsvp" aria-controls="view-rsvp" aria-selected="true">RSVP</button>
       <button class="tab tab-secondary" role="tab" id="tab-guests" aria-controls="view-guests" aria-selected="false" tabindex="-1">
         Who’s coming <span class="badge" id="guest-count" aria-label="">–</span>
       </button>
+      <button class="tab tab-primary" role="tab" id="tab-rsvp" aria-controls="view-rsvp" aria-selected="true">RSVP</button>
     </nav>
   </div>
 </header>
@@ -2108,7 +2108,8 @@
 
   /* ---------------- Tabs ---------------- */
   // Info has no tab of its own: the logo opens it
-  const tabs = { rsvp: $("tab-rsvp"), guests: $("tab-guests") };
+  // Same left-to-right order as the nav, so arrow keys move the way they look
+  const tabs = { guests: $("tab-guests"), rsvp: $("tab-rsvp") };
   const views = { rsvp: $("view-rsvp"), info: $("view-info"), guests: $("view-guests") };
   const TAB_ORDER = Object.keys(tabs);
   const indicator = $("tab-indicator");
@@ -2127,7 +2128,7 @@
   $("brand").addEventListener("click", (e) => { e.preventDefault(); show("info"); });
   function show(name, { focusTab = false, push = true } = {}) {
     if (!views[name]) name = "rsvp";
-    if (name === current) { moveIndicator(); return Promise.resolve(); }
+    if (name === current) { moveIndicator(); if (focusTab) tabs[name]?.focus(); return Promise.resolve(); }
     const swap = () => {
       for (const k of Object.keys(views)) views[k].hidden = k !== name;
       for (const k of TAB_ORDER) {
