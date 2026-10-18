@@ -1172,8 +1172,8 @@
           <p class="form-sub">Takes about a minute.</p>
 
           <div class="field" id="f-name">
-            <label class="field-label" for="name">Your name</label>
-            <input class="input" id="name" name="name" type="text" autocomplete="name" maxlength="100" placeholder="First and last" required aria-describedby="name-err">
+            <label class="field-label" for="name">Parent’s names</label>
+            <input class="input" id="name" name="name" type="text" autocomplete="name" maxlength="100" placeholder="e.g. Sam and Alex Rivera" required aria-describedby="name-err">
             <div class="error-text" id="name-err" hidden></div>
           </div>
 
@@ -1219,7 +1219,7 @@
             <span class="busy" aria-hidden="true"><span class="spinner"></span>Sending</span>
           </button>
           <div class="form-msg" id="form-msg" role="alert" hidden></div>
-          <p class="fine">Your name and dishes appear on the guest list. Allergies are shown without names.</p>
+          <p class="fine">Names and dishes appear on the guest list. Allergies are shown without names.</p>
         </form>
 
         <div class="thanks" id="thanks" hidden tabindex="-1">
@@ -1656,7 +1656,7 @@
     const allergies = [...picked].join(", ");
 
     const bad = [];
-    if (!name) bad.push(showError("name", "Add your name so the host knows who’s coming."));
+    if (!name) bad.push(showError("name", "Add the parents’ names so the host knows who’s coming."));
     if (!dishes.length) bad.push(showError("dish", "Add the dish you’re bringing."));
     if (bad.length) { bad[0].focus(); return; }
 
@@ -1680,8 +1680,8 @@
       }
       lastSubmitted = name;
       const list = dishes.length > 1 ? dishes.slice(0, -1).join(", ") + " and " + dishes.at(-1) : dishes[0];
-      $("thanks-title").textContent = `You’re on the list, ${name.split(/\s+/)[0]}`;
-      $("thanks-detail").textContent = `${partySize === 1 ? "Just you" : "Party of " + partySize}, bringing ${list}. Your card is up on the guest list.`;
+      $("thanks-title").textContent = "You’re on the list";
+      $("thanks-detail").textContent = `${name}, party of ${partySize}, bringing ${list}. Your card is up on the guest list.`;
       form.hidden = true;
       $("thanks").hidden = false;
       $("thanks").focus();
