@@ -1614,11 +1614,25 @@
   .mix li { display: inline-flex; align-items: center; gap: 6px; }
   .mix svg { width: 13px; height: 13px; color: var(--k, var(--text-3)); }
 
-  @media (max-width: 420px) {
+  /* Header layout follows the space the header actually has, not a guessed screen width.
+     Full logo + both buttons need ~510px; below that the wordmark goes, and on the
+     narrowest phones "Who's coming" shortens to "Guests". */
+  .topbar { container: topbar / inline-size; }
+  .lbl-short { display: none; }
+  @container topbar (max-width: 540px) {
     .brand span { display: none; }
+  }
+  @container topbar (max-width: 360px) {
     .tab { padding: 0 14px; height: 38px; }
     .tabs { gap: 6px; }
+    .lbl-long { display: none; }
+    .lbl-short { display: inline; }
   }
+  /* Safety net: if anything still doesn't fit (big accessibility text sizes, a long
+     translation), the wordmark truncates instead of pushing the page sideways */
+  .topbar-inner > .tabs { flex: none; }
+  .brand { min-width: 0; flex: 0 1 auto; }
+  .brand span { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -1644,7 +1658,7 @@
     <nav class="tabs" role="tablist" aria-label="Sections" id="tabs">
       <span class="tab-indicator" id="tab-indicator" aria-hidden="true"></span>
       <button class="tab tab-secondary" role="tab" id="tab-guests" aria-controls="view-guests" aria-selected="false" tabindex="-1">
-        Who’s coming <span class="badge" id="guest-count" aria-label="">–</span>
+        <span class="lbl-long">Who’s coming</span><span class="lbl-short">Guests</span> <span class="badge" id="guest-count" aria-label="">–</span>
       </button>
       <button class="tab tab-primary" role="tab" id="tab-rsvp" aria-controls="view-rsvp" aria-selected="true">RSVP</button>
     </nav>
@@ -2126,6 +2140,11 @@
     indicator.style.setProperty("--w", t.offsetWidth + 8 + "px");
   }
   $("brand").addEventListener("click", (e) => { e.preventDefault(); show("info"); });
+  // Re-measure the ring whenever a button changes size (label swap, font load, rotation)
+  if ("ResizeObserver" in window) {
+    const ro = new ResizeObserver(() => moveIndicator());
+    Object.values(tabs).forEach(t => ro.observe(t));
+  }
   function show(name, { focusTab = false, push = true } = {}) {
     if (!views[name]) name = "rsvp";
     if (name === current) { moveIndicator(); if (focusTab) tabs[name]?.focus(); return Promise.resolve(); }
