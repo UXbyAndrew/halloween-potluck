@@ -1,0 +1,24 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Halloween Potluck//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:halloween-potluck-2026@uxbyandrew.github.io
+DTSTAMP:20261018T120000Z
+DTSTART:20261031T140000Z
+DTEND:20261031T170000Z
+SUMMARY:Halloween Potluck
+LOCATION:Lotterstraat 10\, 2021 TG Haarlem
+DESCRIPTION:Story time\, crafts & games\, potion making\, autumn treats and
+  lots of Halloween magic. Trick-or-treating 5–6 PM. Come dressed in your
+  favorite magical or Halloween-inspired costume.\n\nRSVP and details: http
+ s://uxbyandrew.github.io/halloween-potluck/
+URL:https://uxbyandrew.github.io/halloween-potluck/
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:Halloween Potluck today at 3 PM
+END:VALARM
+END:VEVENT
+END:VCALENDAR
