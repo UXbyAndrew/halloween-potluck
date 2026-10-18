@@ -6,7 +6,7 @@ An **Info** tab has the date, time and address (with directions and an add-to-ca
 
 A third tab, **Who's coming**, shows everyone on the list as cards on a 3D ring you can drag, swipe or arrow through. There is also a flat grid view, which is the default for people who prefer reduced motion.
 
-Each dish can be tagged **Savory**, **Sweet** or **Spooky**, and each party can say whether they're coming by **bike, bus, car or walking**. The guest list shows a running breakdown of both.
+Each dish can be tagged **Savory** or **Sweet**, and each party can say whether they're coming by **bike, bus, car or walking**. The guest list shows a running breakdown of both.
 
 ## Editing and removing an RSVP
 
