@@ -1371,6 +1371,144 @@
 
   canvas.confetti { position: fixed; inset: 0; z-index: 60; pointer-events: none; }
 
+  /* ---------- Menu view ---------- */
+  .menu-head { padding-top: 40px; margin-bottom: 32px; }
+  @media (min-width: 960px) { .menu-head { padding-top: 64px; } }
+  .menu-head .display { font-size: clamp(40px, 6vw, 68px); margin-bottom: 12px; }
+  .menu-head p { margin: 0; color: var(--text-2); max-width: 36rem; }
+
+  .menu-card {
+    position: relative;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 56px 22px 44px;
+    border-radius: 6px;
+    border: 1px solid var(--border-strong);
+    background:
+      radial-gradient(90% 40% at 50% 0%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 70%),
+      linear-gradient(180deg, var(--card-1), var(--card-2));
+    box-shadow: var(--shadow), 0 40px 120px -40px color-mix(in srgb, var(--accent) 30%, transparent);
+  }
+  @media (min-width: 640px) { .menu-card { padding: 72px 64px 56px; } }
+  /* Inner rule, like a printed menu's double border */
+  .menu-card::before {
+    content: "";
+    position: absolute;
+    inset: 10px;
+    border: 1px solid color-mix(in srgb, var(--accent) 34%, transparent);
+    border-radius: 3px;
+    pointer-events: none;
+  }
+  .menu-corner {
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    color: var(--accent);
+    opacity: 0.75;
+    pointer-events: none;
+  }
+  .menu-corner.tl { top: 16px; left: 16px; }
+  .menu-corner.tr { top: 16px; right: 16px; transform: scaleX(-1); }
+  .menu-corner.bl { bottom: 16px; left: 16px; transform: scaleY(-1); }
+  .menu-corner.br { bottom: 16px; right: 16px; transform: scale(-1, -1); }
+
+  .menu-title { text-align: center; }
+  .menu-title .sigil { width: 40px; height: 40px; margin: 0 auto 14px; color: var(--accent); }
+  .menu-title .house { color: var(--text-2); letter-spacing: 0.32em; }
+  .menu-title h2 {
+    margin: 6px 0 8px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(56px, 12vw, 88px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--accent);
+  }
+  .menu-title .when { color: var(--text-3); }
+
+  .ornament {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 32px auto;
+    max-width: 320px;
+    color: var(--accent);
+  }
+  .ornament::before, .ornament::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 55%, transparent));
+  }
+  .ornament::after { transform: scaleX(-1); }
+  .ornament svg { width: 14px; height: 14px; flex: none; }
+
+  .course + .course { margin-top: 44px; }
+  .course-head { text-align: center; margin-bottom: 24px; }
+  .course-head .num { color: var(--accent); letter-spacing: 0.3em; }
+  .course-head h3 {
+    margin: 4px 0 4px;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 32px;
+    letter-spacing: -0.015em;
+  }
+  .course-head p { margin: 0; font-family: var(--serif); font-style: italic; color: var(--text-2); font-size: 16px; }
+
+  .menu-items { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+  .menu-item { animation: grid-in 0.5s var(--ease-out) both; animation-delay: calc(var(--i, 0) * 35ms); }
+  .menu-line { display: flex; align-items: baseline; gap: 10px; }
+  .menu-line .dish {
+    flex: 0 1 auto;
+    min-width: 0;
+    font-family: var(--serif);
+    font-size: 20px;
+    line-height: 1.3;
+    letter-spacing: -0.005em;
+    overflow-wrap: anywhere;
+  }
+  /* Dotted leader between dish and cook, as on a printed menu */
+  .menu-line .leader {
+    flex: 1 1 24px;
+    min-width: 24px;
+    border-bottom: 2px dotted color-mix(in srgb, var(--text) 28%, transparent);
+    transform: translateY(-5px);
+  }
+  .menu-line .who {
+    flex: 0 1 auto;
+    max-width: 46%;
+    text-align: right;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 16.5px;
+    color: var(--text-2);
+    overflow-wrap: anywhere;
+  }
+  .menu-item .yours {
+    display: inline-block;
+    margin-top: 4px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+  .menu-item.mine .dish { color: var(--accent-2); }
+  @media (max-width: 480px) {
+    /* On phones the cook moves under the dish so long names don't squeeze it */
+    .menu-line { flex-wrap: wrap; row-gap: 2px; }
+    .menu-line .dish { flex: 1 1 100%; }
+    .menu-line .leader { flex: 1 1 auto; }
+    .menu-line .who { max-width: 80%; }
+  }
+
+  .menu-empty { text-align: center; padding: 8px 0; }
+  .menu-empty h3 { margin: 0 0 8px; font-family: var(--serif); font-weight: 400; font-size: 28px; }
+  .menu-empty p { margin: 0 0 22px; color: var(--text-2); }
+  .menu-foot { text-align: center; color: var(--text-2); font-size: 14.5px; max-width: 30rem; margin: 0 auto; }
+  .menu-foot p { margin: 0 0 6px; }
+  .menu-foot .mono { color: var(--text-3); }
+
   /* ---------- Dish kinds ---------- */
   .kinds {
     display: flex;
@@ -1614,18 +1752,23 @@
   .mix svg { width: 13px; height: 13px; color: var(--k, var(--text-3)); }
 
   /* Header layout follows the space the header actually has, not a guessed screen width.
-     Full logo + both buttons need ~510px; below that the wordmark goes, and on the
-     narrowest phones "Who's coming" shortens to "Guests". */
+     Full logo + three buttons need ~590px. Below that it steps down: wordmark goes,
+     "Who's coming" becomes "Guests", buttons tighten, and finally the count badge goes. */
   .topbar { container: topbar / inline-size; }
   .lbl-short { display: none; }
-  @container topbar (max-width: 540px) {
+  @container topbar (max-width: 600px) {
     .brand span { display: none; }
   }
-  @container topbar (max-width: 360px) {
-    .tab { padding: 0 14px; height: 38px; }
-    .tabs { gap: 6px; }
+  @container topbar (max-width: 440px) {
     .lbl-long { display: none; }
     .lbl-short { display: inline; }
+  }
+  @container topbar (max-width: 380px) {
+    .tab { padding: 0 13px; height: 38px; }
+    .tabs { gap: 6px; }
+  }
+  @container topbar (max-width: 340px) {
+    .tab .badge { display: none; }
   }
   /* Safety net: if anything still doesn't fit (big accessibility text sizes, a long
      translation), the wordmark truncates instead of pushing the page sideways */
@@ -1659,6 +1802,7 @@
       <button class="tab tab-secondary" role="tab" id="tab-guests" aria-controls="view-guests" aria-selected="false" tabindex="-1">
         <span class="lbl-long">Who’s coming</span><span class="lbl-short">Guests</span> <span class="badge" id="guest-count" aria-label="">–</span>
       </button>
+      <button class="tab tab-secondary" role="tab" id="tab-menu" aria-controls="view-menu" aria-selected="false" tabindex="-1">Menu</button>
       <button class="tab tab-primary" role="tab" id="tab-rsvp" aria-controls="view-rsvp" aria-selected="true">RSVP</button>
     </nav>
   </div>
@@ -1902,6 +2046,46 @@
     </div>
   </section>
 
+  <!-- ============ Menu ============ -->
+  <section class="view" id="view-menu" role="tabpanel" aria-labelledby="tab-menu" hidden>
+    <div class="menu-head">
+      <div class="eyebrow mono">The potluck table</div>
+      <h2 class="display">What’s on the <em>menu</em></h2>
+      <p id="menu-sub">Every dish guests are bringing, and who’s bringing it. Updates as RSVPs come in.</p>
+    </div>
+
+    <article class="menu-card" aria-labelledby="menu-card-title">
+      <svg class="menu-corner tl" viewBox="0 0 34 34" fill="none" aria-hidden="true"><path d="M2 32V10a8 8 0 0 1 8-8h22" stroke="currentColor" stroke-width="1"/><path d="M7 32V14a7 7 0 0 1 7-7h18" stroke="currentColor" stroke-width=".7" opacity=".6"/><circle cx="10" cy="10" r="1.6" fill="currentColor"/></svg>
+      <svg class="menu-corner tr" viewBox="0 0 34 34" fill="none" aria-hidden="true"><path d="M2 32V10a8 8 0 0 1 8-8h22" stroke="currentColor" stroke-width="1"/><path d="M7 32V14a7 7 0 0 1 7-7h18" stroke="currentColor" stroke-width=".7" opacity=".6"/><circle cx="10" cy="10" r="1.6" fill="currentColor"/></svg>
+      <svg class="menu-corner bl" viewBox="0 0 34 34" fill="none" aria-hidden="true"><path d="M2 32V10a8 8 0 0 1 8-8h22" stroke="currentColor" stroke-width="1"/><path d="M7 32V14a7 7 0 0 1 7-7h18" stroke="currentColor" stroke-width=".7" opacity=".6"/><circle cx="10" cy="10" r="1.6" fill="currentColor"/></svg>
+      <svg class="menu-corner br" viewBox="0 0 34 34" fill="none" aria-hidden="true"><path d="M2 32V10a8 8 0 0 1 8-8h22" stroke="currentColor" stroke-width="1"/><path d="M7 32V14a7 7 0 0 1 7-7h18" stroke="currentColor" stroke-width=".7" opacity=".6"/><circle cx="10" cy="10" r="1.6" fill="currentColor"/></svg>
+
+      <header class="menu-title">
+        <svg class="sigil" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <path d="M16 9c-2.2-.9-5.6-.9-8 1.2C4.6 13 4.4 20.2 7.4 24c2.2 2.8 5.3 3.3 8.6 2.5 3.3.8 6.4.3 8.6-2.5 3-3.8 2.8-11-.6-13.8-2.4-2.1-5.8-2.1-8-1.2Z" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M16 9.4c-1.6 2.6-1.8 10.4 0 17M11.2 10.6c-2 3.4-2 11.6.6 15.4M20.8 10.6c2 3.4 2 11.6-.6 15.4" stroke="currentColor" stroke-width=".8" opacity=".7"/>
+          <path d="M16 9.6c0-2.6.8-4.4 2.8-5.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        <div class="house mono">Halloween Potluck</div>
+        <h2 id="menu-card-title">Menu</h2>
+        <div class="when mono">Saturday 31 October · Haarlem</div>
+      </header>
+
+      <div class="ornament" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M8 0 9.6 6.4 16 8 9.6 9.6 8 16 6.4 9.6 0 8 6.4 6.4Z" fill="currentColor"/></svg></div>
+
+      <div id="menu-body" aria-live="polite">
+        <p class="menu-empty mono" style="color:var(--text-3)">Setting the table…</p>
+      </div>
+
+      <div class="ornament" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M8 0 9.6 6.4 16 8 9.6 9.6 8 16 6.4 9.6 0 8 6.4 6.4Z" fill="currentColor"/></svg></div>
+
+      <footer class="menu-foot">
+        <p>Have an allergy? Check the <button type="button" class="link-btn" data-go="rsvp">allergy list</button>, and ask the cook about ingredients.</p>
+        <p class="mono">The menu updates as guests RSVP</p>
+      </footer>
+    </article>
+  </section>
+
   <!-- ============ Guests ============ -->
   <section class="view" id="view-guests" role="tabpanel" aria-labelledby="tab-guests" hidden>
     <div class="guests-head">
@@ -2121,21 +2305,29 @@
   /* ---------------- Tabs ---------------- */
   // Info has no tab of its own: the logo opens it
   // Same left-to-right order as the nav, so arrow keys move the way they look
-  const tabs = { guests: $("tab-guests"), rsvp: $("tab-rsvp") };
-  const views = { rsvp: $("view-rsvp"), info: $("view-info"), guests: $("view-guests") };
+  const tabs = { guests: $("tab-guests"), menu: $("tab-menu"), rsvp: $("tab-rsvp") };
+  const views = { rsvp: $("view-rsvp"), info: $("view-info"), guests: $("view-guests"), menu: $("view-menu") };
   const TAB_ORDER = Object.keys(tabs);
   const indicator = $("tab-indicator");
   let current = "rsvp";
 
-  function moveIndicator() {
+  function moveIndicator(slide) {
     const t = tabs[current];
     indicator.classList.toggle("off", !t);
     if (current === "info") $("brand").setAttribute("aria-current", "page");
     else $("brand").removeAttribute("aria-current");
     if (!t) return;
+    // Only switching views slides the ring; first load, fonts and resizes snap it into place
+    const snap = slide !== true || !indicator.dataset.placed;
+    if (snap) indicator.style.transition = "none";
     // The ring sits 4px outside the button
     indicator.style.setProperty("--x", t.offsetLeft - 4 + "px");
     indicator.style.setProperty("--w", t.offsetWidth + 8 + "px");
+    if (snap) {
+      void indicator.offsetWidth;
+      indicator.style.transition = "";
+      indicator.dataset.placed = "1";
+    }
   }
   $("brand").addEventListener("click", (e) => { e.preventDefault(); show("info"); });
   // Re-measure the ring whenever a button changes size (label swap, font load, rotation)
@@ -2143,10 +2335,11 @@
     const ro = new ResizeObserver(() => moveIndicator());
     Object.values(tabs).forEach(t => ro.observe(t));
   }
-  function show(name, { focusTab = false, push = true } = {}) {
+  function show(name, { focusTab = false, push = true, animate = true } = {}) {
     if (!views[name]) name = "rsvp";
     if (name === current) { moveIndicator(); if (focusTab) tabs[name]?.focus(); return Promise.resolve(); }
     const swap = () => {
+      if (current === name) return;
       for (const k of Object.keys(views)) views[k].hidden = k !== name;
       for (const k of TAB_ORDER) {
         tabs[k].setAttribute("aria-selected", k === name);
@@ -2154,14 +2347,19 @@
         tabs[k].tabIndex = k === name || (name === "info" && k === "rsvp") ? 0 : -1;
       }
       current = name;
-      moveIndicator();
+      moveIndicator(true);
       window.scrollTo({ top: 0 });
       if (name === "guests") guestView.activate();
       if (name === "info") loadMap();
     };
     let done;
-    if (document.startViewTransition && !reduceMotion.matches) done = document.startViewTransition(swap).updateCallbackDone.catch(() => {});
-    else { swap(); done = Promise.resolve(); }
+    if (animate && document.startViewTransition && !reduceMotion.matches) {
+      // If the browser skips the transition (before first paint) or can't draw frames
+      // (tab in the background), still switch views
+      const vt = document.startViewTransition(swap);
+      const fallback = setTimeout(() => { if (current !== name) { vt.skipTransition?.(); swap(); } }, 400);
+      done = vt.updateCallbackDone.catch(() => swap()).finally(() => clearTimeout(fallback));
+    } else { swap(); done = Promise.resolve(); }
     if (focusTab) tabs[name]?.focus();
     if (push) history.replaceState(null, "", name === "rsvp" ? location.pathname + location.search : "#" + name);
     return done;
@@ -2174,7 +2372,7 @@
     const i = Math.max(0, TAB_ORDER.indexOf(document.activeElement?.id?.replace("tab-", "")));
     show(TAB_ORDER[(i + dir + TAB_ORDER.length) % TAB_ORDER.length], { focusTab: true });
   });
-  const hashView = () => ({ "#guests": "guests", "#info": "info" })[location.hash] || "rsvp";
+  const hashView = () => ({ "#guests": "guests", "#info": "info", "#menu": "menu" })[location.hash] || "rsvp";
 
   /* ---------------- Info: map + calendar ---------------- */
   function loadMap() {
@@ -3098,12 +3296,13 @@
       $("st-people").textContent = people;
       $("st-dishes").textContent = dishes;
       this.renderMix(list);
+      renderMenu(list);
       // Forget saved RSVPs that were removed somewhere else
       const ids = new Set(list.map(g => g.id));
       mine.all().forEach(m => { if (!ids.has(m.id)) mine.drop(m.id); });
       renderMine();
       if (this.activated) this.render(false);
-      requestAnimationFrame(moveIndicator);
+      requestAnimationFrame(() => moveIndicator());
     },
     renderMix(list) {
       const kinds = new Map(), ways = new Map();
@@ -3158,6 +3357,52 @@
       }
     }
   };
+  /* ---------------- Menu ---------------- */
+  const COURSES = [
+    { id: "savory", title: "Savory", note: "Warm, hearty and made for sharing" },
+    { id: "sweet", title: "Sweet", note: "Treats for little monsters" },
+    { id: null, title: "Also on the table", note: "Dishes their cooks didn’t label" }
+  ];
+  // "NA", "none" and the like mean "not bringing a dish", so they stay off the menu
+  const NOT_A_DISH = /^(n\.?\s*\/?\s*a\.?|none|nothing|no|nope|-+|—)$/i;
+  function renderMenu(list) {
+    const items = list.flatMap(g => (g.dishes || []).map((dish, j) => ({
+      dish, who: g.name, kind: kindOf(g.dish_kinds?.[j])?.id || null, mine: mine.has(g.id)
+    }))).filter(it => !NOT_A_DISH.test(it.dish.trim()));
+    const rsvps = list.length;
+    $("menu-sub").textContent = items.length
+      ? `${items.length} ${items.length === 1 ? "dish" : "dishes"} from ${rsvps} ${rsvps === 1 ? "RSVP" : "RSVPs"} so far, and who’s bringing each one. Updates as RSVPs come in.`
+      : "Every dish guests are bringing, and who’s bringing it. Updates as RSVPs come in.";
+    if (!items.length) {
+      $("menu-body").replaceChildren(h("div", { class: "menu-empty" },
+        h("h3", { text: "The menu is still being written" }),
+        h("p", { text: "No dishes yet. RSVP with what you’re bringing and it’ll be the first thing on the menu." }),
+        h("button", { type: "button", class: "pill-btn", "data-go": "rsvp" }, "RSVP now")));
+      return;
+    }
+    let n = 0;
+    const courses = COURSES
+      .map(c => ({ ...c, items: items.filter(i => i.kind === c.id) }))
+      .filter(c => c.items.length);
+    // Number only the courses that are showing, so it never reads "I, III"
+    const roman = ["I", "II", "III"];
+    $("menu-body").replaceChildren(...courses.map((c, ci) =>
+      h("section", { class: "course", "aria-label": c.title },
+        h("div", { class: "course-head" },
+          h("div", { class: "num mono", text: `${roman[ci]} · ${String(c.items.length).padStart(2, "0")}`, "aria-hidden": "true" }),
+          h("h3", { text: c.title }),
+          h("p", { text: c.note })),
+        h("ul", { class: "menu-items" }, c.items.map(it => {
+          const li = h("li", { class: "menu-item" + (it.mine ? " mine" : ""), style: `--i:${Math.min(n++, 14)}` },
+            h("div", { class: "menu-line" },
+              h("span", { class: "dish", text: it.dish }),
+              h("span", { class: "leader", "aria-hidden": "true" }),
+              h("span", { class: "who" }, h("span", { class: "sr-only", text: "brought by " }), it.who)));
+          if (it.mine) li.append(h("span", { class: "yours mono", text: "Yours" }));
+          return li;
+        })))));
+  }
+
   $("mode-3d").addEventListener("click", () => guestView.setMode("3d"));
   $("mode-list").addEventListener("click", () => guestView.setMode("list"));
 
@@ -3175,13 +3420,18 @@
       status.classList.add("off");
     }
     if (g.status === "fulfilled") guestView.setData(g.value);
+    else if (guestView.sig === null) {
+      $("menu-body").replaceChildren(h("div", { class: "menu-empty" },
+        h("h3", { text: "The menu didn’t load" }),
+        h("p", { text: "Check your connection and refresh the page." })));
+    }
   }
 
   /* ---------------- Boot ---------------- */
   if (DEMO) $("demo-flag").hidden = false;
   moveIndicator();
-  document.fonts?.ready.then(moveIndicator);
-  window.addEventListener("resize", moveIndicator);
+  document.fonts?.ready.then(() => moveIndicator());
+  window.addEventListener("resize", () => moveIndicator());
   // A private edit link looks like #edit=<token>; take the token, then tidy the URL
   function takeEditLink() {
     const m = location.hash.match(/^#edit=([0-9a-z-]{8,})$/i);
@@ -3191,7 +3441,8 @@
     return true;
   }
   window.addEventListener("hashchange", takeEditLink);
-  if (!takeEditLink() && hashView() !== "rsvp") show(hashView(), { push: false });
+  // Deep links (#info, #guests, #menu) open directly, without an entrance transition
+  if (!takeEditLink() && hashView() !== "rsvp") show(hashView(), { push: false, animate: false });
   refresh();
   setInterval(() => { if (!document.hidden) refresh(); }, 30000);
   document.addEventListener("visibilitychange", () => { if (!document.hidden) refresh(); });
