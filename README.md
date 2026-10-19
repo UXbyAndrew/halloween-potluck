@@ -4,6 +4,8 @@ A single-page RSVP and food intake form for the Halloween potluck. Guests enter 
 
 An **Info** tab has the date, time and address (with directions and an add-to-calendar file), the activities, the afternoon's schedule, the costume note and the embedded Proxi trick-or-treat map. The map only loads once someone opens that tab.
 
+A **Menu** page lists every dish and who's bringing it, laid out like a restaurant menu: Savory, Sweet, then anything untagged. Entries like "NA" or "none" are left off.
+
 A third tab, **Who's coming**, shows everyone on the list as cards on a 3D ring you can drag, swipe or arrow through. There is also a flat grid view, which is the default for people who prefer reduced motion.
 
 Each dish can be tagged **Savory** or **Sweet**, and each party can say whether they're coming by **bike, bus, car or walking**. The guest list shows a running breakdown of both.
