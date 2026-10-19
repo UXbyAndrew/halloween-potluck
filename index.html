@@ -1485,15 +1485,39 @@
     color: var(--text-2);
     overflow-wrap: anywhere;
   }
+  .mine-row { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+  .menu-edit {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    height: 28px;
+    padding: 0 11px;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--accent) 50%, transparent);
+    background: none;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  }
+  .menu-edit:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
   .menu-item .yours {
     display: inline-block;
-    margin-top: 4px;
     padding: 2px 8px;
     border-radius: 999px;
     background: var(--accent-soft);
     color: var(--accent);
   }
-  .menu-item.mine .dish { color: var(--accent-2); }
+  /* Your own dish: a soft highlight that sits in the column without shifting the others */
+  .menu-item.is-mine {
+    margin: -10px -14px;
+    padding: 10px 14px 12px;
+    border-radius: 12px;
+    background: var(--accent-soft);
+    border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+  }
+  .menu-item.is-mine .dish { color: var(--accent-2); }
   @media (max-width: 480px) {
     /* On phones the cook moves under the dish so long names don't squeeze it */
     .menu-line { flex-wrap: wrap; row-gap: 2px; }
@@ -3367,7 +3391,7 @@
   const NOT_A_DISH = /^(n\.?\s*\/?\s*a\.?|none|nothing|no|nope|-+|—)$/i;
   function renderMenu(list) {
     const items = list.flatMap(g => (g.dishes || []).map((dish, j) => ({
-      dish, who: g.name, kind: kindOf(g.dish_kinds?.[j])?.id || null, mine: mine.has(g.id)
+      id: g.id, dish, who: g.name, kind: kindOf(g.dish_kinds?.[j])?.id || null, mine: mine.has(g.id)
     }))).filter(it => !NOT_A_DISH.test(it.dish.trim()));
     const rsvps = list.length;
     $("menu-sub").textContent = items.length
@@ -3393,12 +3417,16 @@
           h("h3", { text: c.title }),
           h("p", { text: c.note })),
         h("ul", { class: "menu-items" }, c.items.map(it => {
-          const li = h("li", { class: "menu-item" + (it.mine ? " mine" : ""), style: `--i:${Math.min(n++, 14)}` },
+          const li = h("li", { class: "menu-item" + (it.mine ? " is-mine" : ""), style: `--i:${Math.min(n++, 14)}` },
             h("div", { class: "menu-line" },
               h("span", { class: "dish", text: it.dish }),
               h("span", { class: "leader", "aria-hidden": "true" }),
               h("span", { class: "who" }, h("span", { class: "sr-only", text: "brought by " }), it.who)));
-          if (it.mine) li.append(h("span", { class: "yours mono", text: "Yours" }));
+          if (it.mine) li.append(h("div", { class: "mine-row" },
+            h("span", { class: "yours mono", text: "Yours" }),
+            h("button", { type: "button", class: "menu-edit", "data-edit": it.id, "aria-label": `Edit your RSVP: ${it.dish}` },
+              svgIcon('<path d="M10.5 2.5l3 3L6 13H3v-3l7.5-7.5Z" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linejoin="round"/>', 13),
+              "Edit")));
           return li;
         })))));
   }
