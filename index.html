@@ -1282,16 +1282,11 @@
   }
   .activities li:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--hue) 50%, transparent); }
   .activities svg { width: 26px; height: 26px; color: var(--hue); }
-  .activities li:last-child {
-    grid-column: 1 / -1;
-    grid-template-columns: auto 1fr;
-    align-items: center;
-    gap: 14px;
-    background: linear-gradient(100deg, color-mix(in srgb, var(--hue) 14%, transparent), var(--field) 70%);
-  }
-  .activities li:nth-child(-n+4) { grid-template-rows: auto auto; }
+  /* Six activities: 2×3 on phones, 3×2 when there's room */
   .activities { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  @media (min-width: 1100px) { .activities { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .activities li { align-content: start; }
+  @media (min-width: 1100px) { .activities { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .timing-note { margin: 22px 0 0; padding-left: 32px; color: var(--text-3); }
 
   .timeline { list-style: none; margin: 0; padding: 0; position: relative; }
   .timeline::before {
@@ -1963,8 +1958,8 @@
     <div class="info-hero">
       <div>
         <div class="eyebrow mono">Event details</div>
-        <h2 class="display">An afternoon of <em>Halloween magic.</em></h2>
-        <p class="lede">Story time, crafts and games, potion making and autumn treats, then trick-or-treating from 5 to 6. Come dressed in your favorite magical or Halloween-inspired costume.</p>
+        <h2 class="display">A <em>Room on the Broom</em> Halloween.</h2>
+        <p class="lede">Story time, a scavenger hunt to help find the witch’s missing things, activity stations, free play and spooky dishes, then trick-or-treating from 5 to 6. Come dressed in your favorite magical or Halloween-inspired costume.</p>
         <div class="cta-row">
           <button type="button" class="pill-btn" data-go="rsvp">RSVP now</button>
           <details class="cal-menu" id="cal-menu">
@@ -1975,7 +1970,7 @@
             </summary>
             <div class="menu">
               <a href="halloween-potluck.ics">Apple Calendar or Outlook</a>
-              <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Halloween%20Potluck&amp;dates=20261031T140000Z%2F20261031T170000Z&amp;location=Lotterstraat%2010%2C%202021%20TG%20Haarlem&amp;details=Story%20time%2C%20crafts%20%26%20games%2C%20potion%20making%2C%20autumn%20treats%20and%20lots%20of%20Halloween%20magic.%20Trick-or-treating%205%E2%80%936%20PM.%20Come%20dressed%20in%20your%20favorite%20magical%20or%20Halloween-inspired%20costume.%0A%0ARSVP%3A%20https%3A%2F%2Fuxbyandrew.github.io%2Fhalloween-potluck%2F" target="_blank" rel="noopener">Google Calendar</a>
+              <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Halloween%20Potluck&amp;dates=20261031T140000Z%2F20261031T170000Z&amp;location=Lotterstraat%2010%2C%202021%20TG%20Haarlem&amp;details=A%20Room%20on%20the%20Broom%20Halloween.%20Come%20dressed%20in%20your%20favorite%20magical%20or%20Halloween-inspired%20costume.%0A%0A3%3A00%E2%80%933%3A40%20Welcome%2C%20free%20play%2C%20activity%20stations%20%26%20spooky%20dishes%0A3%3A40%E2%80%933%3A55%20Room%20on%20the%20Broom%20story%20time%0A3%3A55%E2%80%934%3A15%20Scavenger%20hunt%3A%20help%20find%20the%20witch%E2%80%99s%20missing%20things!%0A4%3A15%E2%80%935%3A00%20Free%20play%2C%20activity%20stations%20%26%20spooky%20dishes%0A5%3A00%E2%80%936%3A00%20Trick-or-treating!%0A%0ATimings%20are%20flexible.%0A%0ARSVP%20and%20details%3A%20https%3A%2F%2Fuxbyandrew.github.io%2Fhalloween-potluck%2F" target="_blank" rel="noopener">Google Calendar</a>
             </div>
           </details>
         </div>
@@ -2007,23 +2002,27 @@
         <ul class="activities">
           <li style="--hue:#FF7A1F">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 6.5C10 5 7 4.5 3.5 5v13c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 6.5v13" stroke="currentColor" stroke-width="1.6"/></svg>
-            Story time
+            Room on the Broom story time
+          </li>
+          <li style="--hue:#B48CFF">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6" stroke="currentColor" stroke-width="1.6"/><path d="m15 15 5.5 5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M10.5 7.5v1M10.5 12.5v1M7.5 10.5h1M12.5 10.5h1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+            Scavenger hunt
           </li>
           <li style="--hue:#7FD1C7">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="6.5" cy="17.5" r="2.5" stroke="currentColor" stroke-width="1.6"/><circle cx="6.5" cy="6.5" r="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M8.5 8 20 18M8.5 16 20 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-            Crafts &amp; games
-          </li>
-          <li style="--hue:#B48CFF">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9.5 3h5M10 3v5.2L5.4 16.5A3 3 0 0 0 8 21h8a3 3 0 0 0 2.6-4.5L14 8.2V3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 14.5h10" stroke="currentColor" stroke-width="1.6"/><circle cx="10.5" cy="17.5" r=".9" fill="currentColor"/><circle cx="13.8" cy="16.8" r=".6" fill="currentColor"/></svg>
-            Potion making
-          </li>
-          <li style="--hue:#E9B44C">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19C5 10 11 4.5 20 4.5 20 13.5 14 19 5 19Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M4 20 13 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-            Autumn treats
+            Activity stations
           </li>
           <li style="--hue:#FF8FA3">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20 15 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M17 3v3M15.5 4.5h3M20 9v2M19 10h2M12 3.5v1.5M11.25 4.25h1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="m15 9 1.5-1.5" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
-            Lots of Halloween magic
+            Free play
+          </li>
+          <li style="--hue:#E9B44C">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 12h17a8.5 7 0 0 1-17 0Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 8.5c-1.2-1.5 1.2-2.4 0-4.2M15 8.5c-1.2-1.5 1.2-2.4 0-4.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Spooky dishes
+          </li>
+          <li style="--hue:#B9D47E">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 7c-2.8-1.1-7-1.1-10 1.5C-.2 12 0 18 3.2 20.5c2.6 2 5.8 2.2 8.8 1.4 3 .8 6.2.6 8.8-1.4 3.2-2.5 3.4-8.5 1.2-12C19 5.9 14.8 5.9 12 7Z" transform="translate(1.2 -1) scale(.9)" stroke="currentColor" stroke-width="1.7"/><path d="M12 6.4c0-2.2.7-3.6 2.4-4.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="m8.5 13 1.5-1.5 1.5 1.5M13 13l1.5-1.5L16 13M9 17c1.8 1.2 4.2 1.2 6 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Trick-or-treating
           </li>
         </ul>
         <div class="costume">
@@ -2033,23 +2032,32 @@
       </div>
 
       <div class="panel-card">
-        <h2>The afternoon</h2>
+        <h2>Halloween agenda</h2>
         <ol class="timeline">
           <li class="hl">
-            <div class="t">3:00 PM</div>
-            <div class="what">Party starts</div>
-            <div class="note">Story time, crafts &amp; games, potion making and autumn treats.</div>
+            <div class="t">3:00 – 3:40 PM</div>
+            <div class="what">Welcome, free play, activity stations &amp; spooky dishes</div>
+          </li>
+          <li>
+            <div class="t">3:40 – 3:55 PM</div>
+            <div class="what">Room on the Broom story time</div>
+          </li>
+          <li>
+            <div class="t">3:55 – 4:15 PM</div>
+            <div class="what">Scavenger hunt</div>
+            <div class="note">Help find the witch’s missing things!</div>
+          </li>
+          <li>
+            <div class="t">4:15 – 5:00 PM</div>
+            <div class="what">Free play, activity stations &amp; spooky dishes</div>
           </li>
           <li class="hl">
             <div class="t">5:00 – 6:00 PM</div>
-            <div class="what">Trick-or-treating</div>
-            <div class="note">We go trick-or-treating together. The map is at the bottom of this page.</div>
-          </li>
-          <li>
-            <div class="t">6:00 PM</div>
-            <div class="what">Party ends</div>
+            <div class="what">Trick-or-treating!</div>
+            <div class="note">The trick-or-treat map is at the bottom of this page.</div>
           </li>
         </ol>
+        <p class="timing-note mono">Timings are flexible</p>
       </div>
     </div>
 
