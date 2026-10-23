@@ -5,15 +5,19 @@ CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
 UID:halloween-potluck-2026@uxbyandrew.github.io
-DTSTAMP:20261018T120000Z
+DTSTAMP:20261023T120000Z
+SEQUENCE:1
 DTSTART:20261031T140000Z
 DTEND:20261031T170000Z
 SUMMARY:Halloween Potluck
 LOCATION:Lotterstraat 10\, 2021 TG Haarlem
-DESCRIPTION:Story time\, crafts & games\, potion making\, autumn treats and
-  lots of Halloween magic. Trick-or-treating 5–6 PM. Come dressed in your
-  favorite magical or Halloween-inspired costume.\n\nRSVP and details: http
- s://uxbyandrew.github.io/halloween-potluck/
+DESCRIPTION:A Room on the Broom Halloween. Come dressed in your favorite ma
+ gical or Halloween-inspired costume.\n\n3:00–3:40 Welcome\, free play\, 
+ activity stations & spooky dishes\n3:40–3:55 Room on the Broom story tim
+ e\n3:55–4:15 Scavenger hunt: help find the witch’s missing things!\n4:
+ 15–5:00 Free play\, activity stations & spooky dishes\n5:00–6:00 Trick
+ -or-treating!\n\nTimings are flexible.\n\nRSVP and details: https://uxbyan
+ drew.github.io/halloween-potluck/
 URL:https://uxbyandrew.github.io/halloween-potluck/
 BEGIN:VALARM
 TRIGGER:-PT2H
